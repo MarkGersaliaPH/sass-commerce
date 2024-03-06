@@ -14,6 +14,7 @@ use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -60,8 +61,9 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(), 
-                    Tables\Columns\TextColumn::make('product')
+                    Tables\Columns\TextColumn::make('product_count')
                         ->numeric()
+                        ->counts('orderItems')
                         ->sortable(), 
                 Tables\Columns\TextColumn::make('total_amount')
                     ->numeric()
@@ -69,9 +71,15 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('shipping_fee')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->numeric()
-                    ->sortable(),
+                    
+                TextColumn::make('status')
+                ->badge()
+                ->color(fn (string $state): string => match ($state) {
+                    '1' => 'gray',
+                    '2' => 'warning',
+                    '3' => 'success',
+                    '4' => 'danger',
+                }), 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -110,4 +118,6 @@ class OrderResource extends Resource
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
+
+    
 }

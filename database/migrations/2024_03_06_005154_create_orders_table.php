@@ -17,9 +17,8 @@ return new class extends Migration
             $table->foreignId('store_id');
             $table->decimal('total_amount', 10, 2);
             $table->decimal('shipping_fee', 10, 2);
-            $table->text('shipping_address');
-            $table->text('contact_no');
-            $table->text('contact_name');
+            $table->text('shipping_address'); 
+            $table->text('notes'); 
             $table->integer('status')->default(1);
             $table->timestamps();
         });

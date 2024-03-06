@@ -14,6 +14,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Get;
@@ -33,83 +34,78 @@ class CreateOrder extends CreateRecord
         $products = Product::get();
 
         return [
-            Step::make('Order')
+            Step::make('Details')
+                ->schema([
+
+                    ToggleButtons::make('status')
+                        ->inline()
+                        ->default(1)
+                        ->options(['1' => 'Pending', '2' => 'Processing', '3' => 'Shipped', '4' => 'Delivered', '5' => 'Cancelled'])
+                        ->required(),
+                    Select::make('user_id')
+                        ->relationship('user', 'name'),
+                    TextArea::make('notes'),
+                ]),
+            Step::make('Items')
                 ->schema([
 
                     Repeater::make('orderItems')
                         ->relationship('orderItems')
                         ->schema([
                             // ...
-                            Grid::make(3)->schema([
+                            Grid::make(3)->schema([ 
+                                Select::make('product_id')
+                                    ->label('Product')
+                                    ->options(Product::query()->pluck('name', 'id'))
+                                    ->required()
+                                    ->reactive()
+                                    ->afterStateUpdated(fn ($state, Set $set) => $set('unit_price', Product::find($state)?->price ?? 0))
+                                    ->distinct()
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                    ->columnSpan([
+                                        'md' => 5,
+                                    ])
+                                    ->searchable(),
 
-                                Select::make('product')
-                                    // ->relationship(
-                                    //     'product',
-                                    //     'name',
-                                    //     modifyQueryUsing: fn (Builder $query) =>  $query->where('store_id', Filament::getTenant()->id),
-                                    // )
-                                    ->options(
-                                        $products->mapWithKeys(function (Product $product) {
-                                            return [$product->id => sprintf('%s (PHP%s)', $product->name, $product->price)];
-                                        })
-                                    )
-                                    // Disable options that are already selected in other rows
-                                    ->disableOptionWhen(function ($value, $state, Get $get) {
-                                        return collect($get('../*.product_id'))
-                                            ->reject(fn ($id) => $id == $state)
-                                            ->filter()
-                                            ->contains($value);
-                                    })
-
-                                    // We need this field to trigger a livewire update on the change
-                                    ->live()
-                                    // ->afterStateUpdated(function ($state, Set $set, Get $get) {
-                                    //     $product = Product::find($state);
-                                    //     $total = $product->price * $get('quantity');
-                                    //     if ($total) {
-                                    //         $set('total', $total);
-                                    //     }else{
-                                    //         $set('total',$product->price);
-                                    //     }
-                                    // })
-                                    // After adding a new row, we need to update the totals
-                                    ->afterStateUpdated(function (Get $get, Set $set) {
-                                        self::updateTotals($get, $set);
-                                    }),
-                                    
-                                TextInput::make('quantity')
+                                TextInput::make('qty')
+                                    ->label('Quantity')
                                     ->numeric()
                                     ->default(1)
-                                    ->minLength(1)
-                                    ->readonly()
-                                    ->live()
-                                    ->afterStateUpdated(function ($state, Set $set, Get $get) {
-                                        if ($get('quantity')) {
-                                            $set('total', $get('total') * $state);
-                                        } else {
-                                            $set('total', $get('total'));
-                                        }
-                                    }),
-                                TextInput::make('total')->readonly()->numeric()
+                                    ->columnSpan([
+                                        'md' => 2,
+                                    ])
+                                    ->required(),
+
+                                TextInput::make('unit_price')
+                                    ->label('Unit Price')
+                                    ->disabled()
+                                    ->dehydrated()
+                                    ->numeric()
+                                    ->required()
+                                    ->columnSpan([
+                                        'md' => 3,
+                                    ]),
                             ])
                         ])
 
                 ]),
-            Step::make('Delivery')
-                ->schema([
-                    Select::make('user_id')
-                        ->relationship('user', 'name'),
-                    Grid::make(2)->schema([
-                        TextInput::make('contact_no')->tel()->required(),
-                        TextInput::make('contact_name')->required(),
-                    ]),
-                    TextArea::make('shipping_address')->required(),
-                ]),
             Step::make('Billing')
                 ->schema([
+                    TextInput::make('total_amount')->numeric()->required(),
+                    TextInput::make('shipping_fee')->numeric()->required(),
+
+                    TextArea::make('shipping_address')->required(),
                     Select::make('payment_method')
                         ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
                 ]),
         ];
     }
+
+    // protected function mutateFormDataBeforeCreate(array $data): array
+    // {
+    //     dd($data);
+    //     $data['user_id'] = auth()->id();
+
+    //     return $data;
+    // }
 }

@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             //
-            $table->string('description')->nullable();
-            $table->string('total')->nullable();
-            $table->integer('quantity')->nullable();
+            $table->integer('qty');
+            $table->decimal('unit_price', 10, 2);
         });
     }
 
@@ -26,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             //
-            $table->dropColumn('description','total','quantity');
+            $table->dropColumn('unit_price','qty');
         });
     }
 };
