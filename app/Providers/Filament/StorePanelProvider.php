@@ -34,7 +34,7 @@ class StorePanelProvider extends PanelProvider
             ->login()
             ->profile(EditProfile::class)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Emerald,
             ])
             ->discoverResources(in: app_path('Filament/Store/Resources'), for: 'App\\Filament\\Store\\Resources')
             ->discoverPages(in: app_path('Filament/Store/Pages'), for: 'App\\Filament\\Store\\Pages')
@@ -57,6 +57,7 @@ class StorePanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->spa()
             ->authMiddleware([
                 Authenticate::class,
             ]);

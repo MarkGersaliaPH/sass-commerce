@@ -12,9 +12,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class OrderItemsRelationManager extends RelationManager
+class order_itemsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'orderItems';
+    protected static string $relationship = 'order_items';
 
     public function form(Form $form): Form
     {
