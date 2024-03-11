@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Livewire\ProductDetail;
+use App\Livewire\Shop;
+use App\Livewire\ShopController;
+use App\Livewire\ShowPosts;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
  Route::get('/',[HomeController::class,'index'])->name('home');
+ 
+
+ Route::get('/shop',ShopController::class);
+
+ Route::get('/product/{id}',ProductDetail::class)->name("product.detail");

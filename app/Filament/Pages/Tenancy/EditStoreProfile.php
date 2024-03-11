@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Tenancy;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -20,7 +21,10 @@ class EditStoreProfile extends EditTenantProfile
         return $form
             ->schema([
                 Section::make()->schema([
-
+                    FileUpload::make('avatar')
+                    ->avatar()
+                    ->imageEditor()
+                    ->circleCropper(),
                     TextInput::make('name')
                         ->required()
                         ->maxLength(255),

@@ -10,7 +10,7 @@ class Store extends Model implements HasAvatar
 {
     use HasFactory;
 
-    protected $fillable = ['name','address','contact_no','email'];
+    protected $fillable = ['name','address','contact_no','email','avatar'];
 
     public function members(){
         return $this->belongsToMany(User::class);
@@ -31,6 +31,11 @@ class Store extends Model implements HasAvatar
     public function getFilamentAvatarUrl(): ?string
     {
         return $this->avatar_url;
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? asset('storage/'.$this->avatar) : null;
     }
 
 }

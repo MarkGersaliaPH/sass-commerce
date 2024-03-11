@@ -24,9 +24,9 @@ class ApplyTenantScopes
             fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
         );
         
-        Category::addGlobalScope(
-            fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
-        );
+        // Category::addGlobalScope(
+        //     fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
+        // );
         Order::addGlobalScope(
             fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
         );

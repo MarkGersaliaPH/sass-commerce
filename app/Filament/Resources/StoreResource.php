@@ -6,6 +6,7 @@ use App\Filament\Resources\StoreResource\Pages;
 use App\Filament\Resources\StoreResource\RelationManagers;
 use App\Models\Store;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,6 +27,10 @@ class StoreResource extends Resource
             ->schema([
                 Section::make([
 
+                    FileUpload::make('avatar')
+                    ->avatar()
+                    ->imageEditor()
+                    ->circleCropper(),
                     Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -44,8 +49,10 @@ class StoreResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\ImageColumn::make('avatar')
                     ->searchable(),
+                    Tables\Columns\TextColumn::make('name')
+                        ->searchable(),
                 Tables\Columns\TextColumn::make('contact_no')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')

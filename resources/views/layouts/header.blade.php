@@ -18,13 +18,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href={{asset("template/assets/img/favicons/favicon-16x16.png")}}>
     <link rel="shortcut icon" type="image/x-icon" href={{asset("template/assets/img/favicons/favicon.ico")}}>
     <link rel="manifest" href={{asset("template/assets/img/favicons/manifest.json")}}>
-    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png")}}>
-    <meta name="theme-color" content="#ffffff">
-
-
+    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff"> 
+    <link rel="stylesheet" href="{{asset('/plugins/owl-carousel/dist/assets/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/plugins/owl-carousel/dist/assets/owl.theme.default.min.css')}}">
+    {{-- <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css"> --}}
+    <link rel="stylesheet" href="{{asset('/css/custom.css')}}">
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link href={{asset("template/assets/css/theme.css")}} rel="stylesheet" />
+
 
   </head>

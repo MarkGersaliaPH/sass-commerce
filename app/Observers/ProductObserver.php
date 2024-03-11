@@ -15,6 +15,7 @@ class ProductObserver
         // 
         // $product->store_id = Filament::getTenant()->id; 
         $product->created_by_id = auth()->id(); 
+        $product->price = $product->price / 100;
     }
 
     /**

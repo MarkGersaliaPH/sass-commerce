@@ -21,6 +21,8 @@ class Product extends Model
     ];
  
 
+    protected $appends  = ['image','display_price'];
+
     public function store(){
         return $this->belongsTo(Store::class);
     }
@@ -39,6 +41,16 @@ class Product extends Model
         return $this->belongsToMany(Order::class,'order_items')->withTimeStamps();
     }
 
+    public function getImageAttribute(){ 
+        return $this->images ? asset('storage/'.$this->images[0]) : null;
+    }
 
+    public function getDisplayPriceAttribute(){
+        return "P" . ($this->promo_price ?  $this->promo_price : $this->price);
+    }
+
+    public function scopeIsEnabled($query){
+        return $query->where('is_enabled',true);
+    }
     
 }

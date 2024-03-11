@@ -9,11 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "bumbummen99/shoppingcart": "dev-laravel10",
         "filament/filament": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "wire-elements/modal": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -24,6 +26,13 @@
         "phpunit/phpunit": "^10.1",
         "spatie/laravel-ignition": "^2.0"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/phobrv/LaravelShoppingcart.git",
+            "no-api": true
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",
