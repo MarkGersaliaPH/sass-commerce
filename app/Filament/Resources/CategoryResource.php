@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Store\Resources;
+namespace App\Filament\Resources;
 
-use App\Filament\Store\Resources\CategoryResource\Pages;
-use App\Filament\Store\Resources\CategoryResource\RelationManagers;
+use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -25,7 +25,9 @@ class CategoryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([ 
+            ->schema([
+                //
+                
                 TextInput::make('name'),
                 Select::make('parent_id')
                     ->label('Parent')
@@ -37,7 +39,8 @@ class CategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([ 
+            ->columns([
+                //
                 TextColumn::make('name'),
                 TextColumn::make('parent.name'),
                 TextColumn::make('children_count')->counts('children'),

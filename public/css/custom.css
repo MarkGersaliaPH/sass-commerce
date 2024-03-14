@@ -28,3 +28,20 @@
     height: 450px;
     padding-top: 50px;
 }
+
+.floating-cart{
+    position: fixed;
+    z-index: 9999;
+    bottom: 20;
+    right: 0;
+    background-color: black;
+    color: #fff;
+}
+
+.fab-container{
+    z-index: 9999;
+}
+
+.text-strike{
+    text-decoration: line-through;
+}

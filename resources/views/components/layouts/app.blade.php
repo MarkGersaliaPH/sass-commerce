@@ -2,8 +2,7 @@
 <html lang="en-US" dir="ltr">
 @include('layouts.header')
 
-@livewireStyles
-@livewire('wire-elements-modal')
+@livewireStyles 
 
 <body>
 
@@ -20,7 +19,6 @@
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
- 
 
     @include('layouts.javascripts')
     @livewireScripts

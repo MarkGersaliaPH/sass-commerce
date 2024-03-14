@@ -1,5 +1,5 @@
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow" data-navbar-on-scroll="data-navbar-on-scroll">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" data-navbar-on-scroll="data-navbar-on-scroll">
         <div class="container"><a class="navbar-brand d-inline-flex" href="index.html"><img class="d-inline-block" src="{{asset("template/assets/img/gallery/logo.svg")}}" alt="logo" /><span class="text-1000 fs-3 fw-bold ms-2 text-gradient">foodwaGon</span></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 my-2 mt-lg-0" id="navbarSupportedContent">
@@ -12,8 +12,8 @@
             </div>
             {{-- <form class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0"> --}}
               <button class="btn btn-white shadow-warning text-warning rounded me-2" type="submit"> <i class="fas fa-user me-2"></i>Login</button>
-              @livewire('cart-counter')
-              @livewire('cart-clear')
+              {{-- @livewire('cart-counter')
+              @livewire('cart-clear') --}}
             {{-- </form> --}}
           </div>
         </div>

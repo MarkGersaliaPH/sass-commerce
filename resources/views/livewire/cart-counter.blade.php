@@ -1,10 +1,32 @@
 <div>
-    <button type="button" class="btn btn-primary position-relative rounded">
-        <i class="fas fa-shopping-cart me-2"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{$count}}
-          <span class="visually-hidden">unread messages</span>
-        </span>
-      </button>
+  <h2> Look at Bottom Right Corner </h2>
+<p> This page demonstrate floating action buttons for Bootstrap 5 projects. </p>
 
+<div class="fab-container">
+  <div class="fab shadow">
+    <div class="fab-content">
+      <span class="material-icons">support_agent</span>
+    </div>
+  </div>
+  <div class="sub-button shadow">
+    <a href="google.com" target="_blank">
+      <span class="material-icons">phone</span>
+    </a>
+  </div>
+  <div class="sub-button shadow">
+    <a href="google.com" target="_blank">
+      <span class="material-icons">mail_outline</span>
+    </a>
+  </div>
+  <div class="sub-button shadow">
+    <a href="google.com" target="_blank">
+      <span class="material-icons">language</span>
+    </a>
+  </div>
+  <div class="sub-button shadow">
+    <a href="google.com" target="_blank">
+      <span class="material-icons">help_outline</span>
+    </a>
+  </div>
+</div>
 </div>

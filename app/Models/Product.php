@@ -13,7 +13,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','images','description','price','promo_price','created_by_id','store_id', 'category_id','is_enabled'];
+    protected $fillable = ['name','images','description','price','promo_price','created_by_id','store_id', 'category_id','is_enabled','preparation_time'];
 
 
     protected $casts = [
@@ -21,7 +21,7 @@ class Product extends Model
     ];
  
 
-    protected $appends  = ['image','display_price'];
+    protected $appends  = ['image','display_price','discount_percentage','display_preparation_time'];
 
     public function store(){
         return $this->belongsTo(Store::class);
@@ -46,11 +46,38 @@ class Product extends Model
     }
 
     public function getDisplayPriceAttribute(){
-        return "P" . ($this->promo_price ?  $this->promo_price : $this->price);
+        if($this->promo_price){
+            return "<span class='text-strike'>P{$this->price}</span>  - <span class='text-danger'>P{$this->promo_price}</span>";
+        } 
+        return "P" .$this->price;
     }
 
     public function scopeIsEnabled($query){
         return $query->where('is_enabled',true);
     }
     
+
+    public function scopeIsDiscounted($query){
+        return $query->whereNotNull('promo_price');
+    }
+
+    public function setDiscountPerecentage(){ 
+        $percentageDecrease = (($this->price - $this->promo_price) / $this->price) * 100;
+        return number_format(floatval($percentageDecrease));
+    }
+
+    public function getDiscountPercentageAttribute(){
+        if($this->promo_price){ 
+            return $this->setDiscountPerecentage();
+        }
+
+        return null;
+
+    }
+
+    
+    public function getDisplayPreparationTimeAttribute(){
+        return $this->preparation_time ?  $this->preparation_time . " Mins" : null;
+    }
+
 }

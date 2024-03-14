@@ -6,14 +6,14 @@
               <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3 text-danger">Featured Stores</h5>
             </div>
           </div>
-          <div class="row gx-2">
+          <div class="row gx-2 mx-auto d-flex justify-content-center">
             @foreach ($stores as $store)
                 
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5">
-                <div class="card card-span h-100 text-white rounded-3">
+                <div class="card card-span h-100 text-white border rounded-3">
                     <div class="img-fluid card-img-top rounded-3 single-product-image" style="background-image:url({{$store->products->first()->image}})"></div> 
                   
-                  <div class="card-body ps-0">
+                  <div class="card-body">
                     <div class="d-flex align-items-center mb-3"><img class="img-fluid store-logo" src="{{$store->avatar_url}}" alt="" />
                       <div class="flex-1 ms-3">
                         <h5 class="mb-0 fw-bold text-1000">{{$store->name}}</h5><span class="text-primary fs--1 me-1"><i class="fas fa-star"></i></span><span class="mb-0 text-primary">46</span>

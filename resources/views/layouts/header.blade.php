@@ -13,6 +13,8 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+
     <link rel="apple-touch-icon" sizes="180x180" href={{asset("template/assets/img/favicons/apple-touch-icon.png")}}>
     <link rel="icon" type="image/png" sizes="32x32" href={{asset("template/assets/img/favicons/favicon-32x32.png")}}>
     <link rel="icon" type="image/png" sizes="16x16" href={{asset("template/assets/img/favicons/favicon-16x16.png")}}>
@@ -22,6 +24,7 @@
     <meta name="theme-color" content="#ffffff"> 
     <link rel="stylesheet" href="{{asset('/plugins/owl-carousel/dist/assets/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('/plugins/owl-carousel/dist/assets/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/plugins/bootstrap-5-floating-action-button/css/style.css')}}">
     {{-- <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css"> --}}
     <link rel="stylesheet" href="{{asset('/css/custom.css')}}">
     <!-- ===============================================-->
@@ -29,5 +32,6 @@
     <!-- ===============================================-->
     <link href={{asset("template/assets/css/theme.css")}} rel="stylesheet" />
 
-
+    <script src="{{ asset('plugins/owl-carousel/docs/assets/vendors/jquery.min.js') }}"></script>
+    <script src={{ asset('template/vendors/bootstrap/bootstrap.min.js') }}></script> 
   </head>

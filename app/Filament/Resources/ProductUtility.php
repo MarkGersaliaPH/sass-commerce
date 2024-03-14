@@ -40,11 +40,19 @@ class ProductUtility
                     ->schema([
                         // ... 
                         TextInput::make('name')->required(),
-                        Select::make('category_id')
+                        Grid::make(2)->schema([
+
+                            Select::make('category_id')
                             ->label('Category')
                             ->required()
                             ->options(Category::all()->pluck('name', 'id'))
                             ->searchable(),
+                            TextInput::make('preparation_time') 
+                            ->numeric()
+    ->suffix('minutes')
+
+
+                        ]),
                         RichEditor::make('description')
                     ]),
 
