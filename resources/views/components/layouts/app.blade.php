@@ -6,10 +6,12 @@
 
 <body>
 
+  @include('layouts.navbar')
+
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
-    <main class="main" id="top"> 
+    <main class="main" id="top" style="margin-top: 100px;margin-bottom:100px"> 
         
       <!-- ============================================-->
       <!-- <section> begin ============================--> 
@@ -21,6 +23,7 @@
     <!-- ===============================================-->
 
     @include('layouts.javascripts')
+    @include('layouts.footer')
     @livewireScripts
 </body>
 

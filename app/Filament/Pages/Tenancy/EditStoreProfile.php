@@ -24,6 +24,7 @@ class EditStoreProfile extends EditTenantProfile
                     FileUpload::make('avatar')
                     ->avatar()
                     ->imageEditor()
+                    ->directory('stores')
                     ->circleCropper(),
                     TextInput::make('name')
                         ->required()

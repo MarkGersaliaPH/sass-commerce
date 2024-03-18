@@ -45,11 +45,18 @@ class ProductUtility
                             Select::make('category_id')
                             ->label('Category')
                             ->required()
-                            ->options(Category::all()->pluck('name', 'id'))
-                            ->searchable(),
+                            ->relationship(name: 'category', titleAttribute: 'name')
+                            ->preload() 
+                            ->searchable()
+                            ->createOptionForm([
+                               TextInput::make('name')
+                                    ->required() ,
+                            ]),
+
+                            
                             TextInput::make('preparation_time') 
                             ->numeric()
-    ->suffix('minutes')
+                            ->suffix('minutes')
 
 
                         ]),
@@ -63,6 +70,7 @@ class ProductUtility
                             ->schema([
                                 TextInput::make('price')->numeric()
                                     ->prefix('PHP')
+                                    ->required()
                                     ->maxValue(42949672.95),
                                 TextInput::make('promo_price')->numeric()
                                     ->prefix('PHP')
@@ -81,8 +89,10 @@ class ProductUtility
                     ->schema([
                         FileUpload::make('images')
                             ->label("")
+                            ->directory("products")
                             ->maxFiles(5)
                             ->multiple(true)
+                            ->imageEditor()
                             ->columnSpanFull()
                     ])
             ])->columnSpan(1),

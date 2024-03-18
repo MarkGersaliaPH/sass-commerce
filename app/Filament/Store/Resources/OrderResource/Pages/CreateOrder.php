@@ -10,6 +10,7 @@ use Filament\Facades\Filament;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -94,7 +95,16 @@ class CreateOrder extends CreateRecord
                     TextInput::make('total_amount')->numeric()->required(),
                     TextInput::make('shipping_fee')->numeric()->required(),
 
-                    TextArea::make('shipping_address')->required(),
+                    Section::make('Shipping Details')
+                    ->schema(
+                        [
+                            Grid::make()
+                                ->relationship('address')
+                                ->schema(
+                                    OrderResource::getAddressForm(),
+                                )
+                        ]
+                    ),
                     Select::make('payment_method')
                         ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
                 ]),

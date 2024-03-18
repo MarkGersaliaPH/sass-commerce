@@ -30,6 +30,7 @@ class StoreResource extends Resource
                     FileUpload::make('avatar')
                     ->avatar()
                     ->imageEditor()
+                    ->directory("stores")
                     ->circleCropper(),
                     Forms\Components\TextInput::make('name')
                     ->required()

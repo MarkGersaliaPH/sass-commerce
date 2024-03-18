@@ -32,9 +32,7 @@
                     items: 3,
                 },
                 1000: {
-                    items: 5,
-                    loop: true,
-                    infinite: true,
+                    items: 5, 
                 }
             }
         });

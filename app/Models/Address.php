@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'model_id',
+        'model_type',
+        'contact_no',
+        'name',
+        'email',
+        'state',
+        'city',
+        'zip',
+        'barangay',
+        'street',
+        'address',
+    ];
+
+    public function model(){
+        return $this->morphToMany('address',$this->model_type);
+    }
 }

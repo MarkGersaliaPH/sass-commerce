@@ -21,7 +21,7 @@ class Product extends Model
     ];
  
 
-    protected $appends  = ['image','display_price','discount_percentage','display_preparation_time'];
+    protected $appends  = ['image','display_price','discount_percentage','display_preparation_time','final_price'];
 
     public function store(){
         return $this->belongsTo(Store::class);
@@ -50,6 +50,18 @@ class Product extends Model
             return "<span class='text-strike'>P{$this->price}</span>  - <span class='text-danger'>P{$this->promo_price}</span>";
         } 
         return "P" .$this->price;
+    }
+
+    public function setFinalPriceAttribute(){
+        if($this->promo_price){
+            return $this->promo_price;
+        }else{
+            return $this->price;
+        }
+    }
+
+    public function getFinalPriceAttribute(){
+        return $this->setFinalPriceAttribute();
     }
 
     public function scopeIsEnabled($query){

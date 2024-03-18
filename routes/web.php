@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Livewire\Cart;
+use App\Livewire\Cart\Table;
+use App\Livewire\Checkout;
 use App\Livewire\ProductDetail;
 use App\Livewire\Shop;
 use App\Livewire\ShopController;
@@ -23,3 +26,7 @@ use Illuminate\Support\Facades\Route;
  Route::get('/shop',ShopController::class);
 
  Route::get('/product/{id}',ProductDetail::class)->name("product.detail");
+
+ Route::get('/cart',Table::class)->name('cart');
+ Route::get('checkout',Checkout::class)->name('checkout');
+

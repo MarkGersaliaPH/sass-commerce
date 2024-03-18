@@ -4,17 +4,24 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 my-2 mt-lg-0" id="navbarSupportedContent">
             <div class="mx-auto pt-5 pt-lg-0 d-block d-lg-none d-xl-block">
-              
-              <div class="input-group-icon pe-2"><i class="fas fa-search input-box-icon text-primary"></i>
-                <input class="form-control border-0 input-box bg-100" type="search" placeholder="Search Food" aria-label="Search" />
-              </div>
-              {{-- <p class="mb-0 fw-bold text-lg-center">Deliver to: <i class="fas fa-map-marker-alt text-warning mx-2"></i><span class="fw-normal">Current Location </span><span>Mirpur 1 Bus Stand, Dhaka</span></p> --}}
+
+              <p class="mb-0 fw-bold text-lg-center">Deliver to: <i class="fas fa-map-marker-alt text-warning mx-2"></i><span class="fw-normal">Current Location </span><span>Mirpur 1 Bus Stand, Dhaka</span></p>
             </div>
             {{-- <form class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0"> --}}
-              <button class="btn btn-white shadow-warning text-warning rounded me-2" type="submit"> <i class="fas fa-user me-2"></i>Login</button>
+              <button class="btn btn-white text-warning rounded" type="submit"> <i class="fas fa-user me-2"></i>Login</button>
               {{-- @livewire('cart-counter')
               @livewire('cart-clear') --}}
             {{-- </form> --}}
+            
+           <div >
+            <a href="{{route('cart')}}" class="btn btn-white text-danger  position-relative">
+                <span class="shop-bag"><i class='fa fa-shopping-bag me-2'></i></span> 
+                Cart
+                  <span class=" badge rounded-pill bg-danger">
+                    @livewire('cart-counter')
+                  </span>  
+            </a>           
+        </div>
           </div>
         </div>
       </nav>

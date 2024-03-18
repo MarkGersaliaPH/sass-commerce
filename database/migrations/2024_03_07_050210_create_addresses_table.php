@@ -11,16 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shipping_addresses', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id(); 
-            $table->foreignId('order_id');
+            
+            $table->foreignId('model_id');
+            $table->string('model_type');
             $table->string('contact_no')->nullable();
-            $table->string('contact_name')->nullable();
-            $table->string('street')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
             $table->string('state')->nullable();
-            $table->string('barangay')->nullable(); 
             $table->string('city')->nullable();
             $table->string('zip')->nullable();
+            $table->string('barangay')->nullable(); 
+            $table->string('street')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

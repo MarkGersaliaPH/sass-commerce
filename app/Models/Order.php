@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Order extends Model
 {
@@ -35,15 +36,8 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'order_items');
     }
 
-    public function address(): HasOne
+    public function address(): MorphTo
     {
-        return $this->hasOne(ShippingAddress::class);
-    }
-    public static function boot()
-    {
-        parent::boot();
-        static::updating(function ($model) {
-            dd($model->order_items); 
-        });
-    }
+        return $this->morphTo(Address::class);
+    } 
 }

@@ -35,6 +35,5 @@
         </div>
     </section>
 
-
-    @livewire('cart-counter')
+ 
 @endsection
