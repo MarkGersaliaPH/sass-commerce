@@ -23,6 +23,9 @@
     <!-- ===============================================-->
 
     @include('layouts.javascripts')
+
+    {{-- Custom scripts --}}
+    @stack('scripts')
     @include('layouts.footer')
     @livewireScripts
 </body>

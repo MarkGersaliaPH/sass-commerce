@@ -29,7 +29,7 @@ class AddToCart extends Component
         // dd($this->id,$this->qty);
         $product = Product::find($this->id);
         $price = $product->getFinalPriceAttribute(); 
-        Cart::add($product->id, $product->name, $this->qty, $price)->associate(Product::class);
+        Cart::add($product->id, $product->name, $this->qty, $price)->associate(Product::class); 
         $this->dispatch('cart_updated');
         $this->reset();
     }

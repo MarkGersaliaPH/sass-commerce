@@ -164,15 +164,15 @@
     position: relative;
     padding-bottom: 24px;
     padding-left: 35px;
-    border-left: 2px solid #f5f6f8
+    border-left: 2px solid #FFB30E 
 }
 
 .activity-checkout .checkout-item:first-child {
-    border-color: #3b76e1
+  border-left: 2px solid #FFB30E 
 }
 
 .activity-checkout .checkout-item:first-child:after {
-    background-color: #3b76e1
+    background-color: #FFB30E
 }
 
 .activity-checkout .checkout-item:last-child {
@@ -295,7 +295,7 @@
 }
 
 .card-radio-input:checked+.card-radio {
-    border-color: #3b76e1!important
+    border-color: #FFB30E!important
 }
 
 
@@ -340,4 +340,13 @@ a {
 
 .cursor-pointer{
   cursor: pointer;
+}
+
+.form-control { 
+  padding: 10px !important; 
+  background-color: #fff !important; 
+}
+
+select:read-only{
+  pointer-events: none;
 }

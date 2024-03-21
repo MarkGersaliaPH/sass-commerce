@@ -3,7 +3,10 @@
 use App\Http\Controllers\HomeController;
 use App\Livewire\Cart;
 use App\Livewire\Cart\Table;
+use App\Livewire\CartPage;
 use App\Livewire\Checkout;
+use App\Livewire\Checkout\Guest;
+use App\Livewire\Checkout\NotLoggedIn;
 use App\Livewire\ProductDetail;
 use App\Livewire\Shop;
 use App\Livewire\ShopController;
@@ -27,6 +30,10 @@ use Illuminate\Support\Facades\Route;
 
  Route::get('/product/{id}',ProductDetail::class)->name("product.detail");
 
- Route::get('/cart',Table::class)->name('cart');
- Route::get('checkout',Checkout::class)->name('checkout');
+ Route::get('/cart',CartPage::class)->name('cart');
+
+ Route::get('checkout',Checkout::class)->middleware('shop')->name('checkout');
+ Route::get('checkout-guest',Guest::class)->name('checkout.guest');
+ 
+ Route::get('checkout/not-logged-in',NotLoggedIn::class)->name('checkout.not-logged-in');
 
