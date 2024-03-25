@@ -10,12 +10,30 @@ use Yajra\Address\Entities\Region;
 class Form extends Component
 {
  
+
+    #[Validate('required')] 
+    public $name;
+    
+    #[Validate('required')] 
+    public $contact_no;
+    
+
+    public $region_id = 13;
+    public $province_id = 1374;
+    public $city_id = 137401;
+
+    public $regions = [];
+    public $provinces = [];
+    public $cities = [];
+    public $barangays = [];
+
+    
     public function mount(){    
         $this->regions = \DB::table("regions")->get(); 
         
         $this->provinces = \DB::table("provinces")
         ->where('region_id',$this->region_id)
-        ->get(); 
+        ->get();  
 
         $this->cities = \DB::table("cities")
         ->where('province_id',$this->province_id)
@@ -27,6 +45,8 @@ class Form extends Component
         ->get(); 
 
     }
+
+
 
     public function onSelectRegion(){  
         $this->provinces = \DB::table("provinces")

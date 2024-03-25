@@ -2,12 +2,9 @@
 
 namespace App\Filament\Store\Resources;
 
-use App\Filament\Store\Resources\OrderResource\Pages;
-use App\Filament\Store\Resources\OrderResource\RelationManagers;
-use App\Filament\Store\Resources\OrderResource\RelationManagers\order_itemsRelationManager;
+use App\Filament\Store\Resources\OrderResource\Pages; 
 use App\Models\Order;
-use App\Models\Product;
-use App\Models\User;
+use App\Models\Product; 
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
