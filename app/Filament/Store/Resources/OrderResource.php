@@ -63,9 +63,9 @@ class OrderResource extends Resource
                                 ]
                             ),
                         Section::make()->schema([
-                            Repeater::make('order_items')
+                            Repeater::make('orderItems')
                                 ->label("Items")
-                                ->relationship('order_items')
+                                ->relationship('orderItems')
                                 ->schema([
                                     // ...
                                     Grid::make(3)->schema([
@@ -152,10 +152,10 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('order_items_count')
+                Tables\Columns\TextColumn::make('orderItems_count')
                     ->numeric()
                     ->label("Products")
-                    ->counts('order_items'),
+                    ->counts('orderItems'),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->numeric()
                     ->sortable(),
@@ -197,7 +197,7 @@ class OrderResource extends Resource
     {
         return [
             //
-            // order_itemsRelationManager::class
+            // orderItemsRelationManager::class
         ];
     }
 

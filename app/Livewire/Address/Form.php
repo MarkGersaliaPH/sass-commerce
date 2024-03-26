@@ -10,12 +10,7 @@ use Yajra\Address\Entities\Region;
 class Form extends Component
 {
  
-
-    #[Validate('required')] 
-    public $name;
-    
-    #[Validate('required')] 
-    public $contact_no;
+    public $errors;
     
 
     public $region_id = 13;
@@ -28,7 +23,7 @@ class Form extends Component
     public $barangays = [];
 
     
-    public function mount(){    
+    public function mount($errors){     
         $this->regions = \DB::table("regions")->get(); 
         
         $this->provinces = \DB::table("provinces")
@@ -43,6 +38,13 @@ class Form extends Component
         $this->barangays = \DB::table("barangays")
         ->where('city_id',$this->city_id)
         ->get(); 
+
+        $this->errors = $errors;
+  
+        if(count($errors)){
+            dd($errors);
+        }
+ 
 
     }
 

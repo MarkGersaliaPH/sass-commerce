@@ -50,8 +50,8 @@ class CreateOrder extends CreateRecord
             Step::make('Items')
                 ->schema([
 
-                    Repeater::make('order_items')
-                        ->relationship('order_items')
+                    Repeater::make('orderItems')
+                        ->relationship('orderItems')
                         ->schema([
                             // ...
                             Grid::make(3)->schema([ 

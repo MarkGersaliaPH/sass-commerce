@@ -13,7 +13,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable  = ['user_id', 'store_id', 'total_amount', 'shipping_fee', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method'];
+    protected $fillable  = ['user_id', 'store_id', 'total_amount', 'shipping_fee', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method','guest_checkout','customer_id'];
 
 
     public function store(): BelongsTo
@@ -21,7 +21,7 @@ class Order extends Model
         return $this->belongsTo(Store::class);
     }
 
-    public function order_items(): HasMany
+    public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
@@ -33,11 +33,16 @@ class Order extends Model
 
     public function product()
     {
-        return $this->belongsToMany(Product::class, 'order_items');
+        return $this->belongsToMany(Product::class, 'orderItems');
     }
 
     public function address(): MorphTo
     {
         return $this->morphTo(Address::class);
     } 
+
+    public function guestCustomer(): BelongsTo
+    {
+        return $this->belongsTo(Guest::class,'customer_id');
+    }
 }

@@ -14,17 +14,23 @@
             
             <div class="card card-body mb-3">
                 <h5 class="mb-3">Customer Details</h5>
-                @livewire('customer-form')
+                @include('forms.customer')
             </div>
 
             <div class="card card-body mb-3">
-                <h5 class="mb-3">Shipping Details</h5>
-                @livewire('address.form')
+                <h5 class="mb-3">Shipping Details</h5> 
+                @include('forms.address')
             </div>
 
             <div class="d-flex justify-content-between">
                 <a href="" class="text-blue">Continue Shopping</a>
-                <button class="btn btn-danger" type="submit">Proceed</button>
+                <button class="btn btn-danger" type="submit">Proceed
+
+                    <div wire:loading>
+                        .... <!-- SVG loading spinner -->
+                    </div>
+
+                </button>
             </div>
         </form>
 

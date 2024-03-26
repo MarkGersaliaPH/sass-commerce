@@ -20,12 +20,41 @@ class AddressForm extends Form
     
     #[Validate('required')] 
     public $street; 
+ 
+    public $regions = [];
+    public $provinces = [];
+    public $cities = [];
+    public $barangays = [];
+
+    
+    public function getOptions(){     
+        $data['regions'] = \DB::table("regions")->get(); 
+        
+        $data['provinces'] = \DB::table("provinces")
+        ->where('region_id',$this->region_id)
+        ->get();  
+
+        $data['cities'] = \DB::table("cities")
+        ->where('province_id',$this->province_id)
+        ->get(); 
+
+        
+        $data['barangays'] = \DB::table("barangays")
+        ->where('city_id',$this->city_id)
+        ->get(); 
+  
+
+        return  $data;
+ 
+
+    }
+    
+
     
     public function store() 
-    {
-        dd($this->validate());
- 
-        // Post::create($this->all());
+    { 
+  
+        return $this->all();
     }
 
 }

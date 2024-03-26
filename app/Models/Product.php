@@ -33,14 +33,14 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function order_items()
+    public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
     }
 
     public function order()
     {
-        return $this->belongsToMany(Order::class, 'order_items')->withTimeStamps();
+        return $this->belongsToMany(Order::class, 'orderItems')->withTimeStamps();
     }
 
     public function getImageAttribute()
