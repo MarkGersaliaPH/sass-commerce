@@ -8,6 +8,7 @@ use App\Livewire\Forms\AddressForm;
 use App\Livewire\Forms\CustomerForm;
 use App\Models\Guest as ModelsGuest;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -26,6 +27,10 @@ class Guest extends Component
     public function save()
     {
 
+        // $this->form->validate();
+        // $this->customer->validate();
+
+        
         // dd($this->form->all(),$this>customer->all()); 
 
  
@@ -36,8 +41,9 @@ class Guest extends Component
         $groupped = $cart_data->groupBy(function ($item, $key) {
             return $item->model->store->id;
         }); 
+ 
 
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try { 
             foreach ($groupped as $store_id => $cartItems) {  
             
@@ -47,19 +53,24 @@ class Guest extends Component
                         $this->customer->all()
                     );
   
-                    $orders = ($guest->orders()->create([
+                    $order = $guest->orders()->create(
                         [
                         'store_id'=>$store_id,
                         'total_amount'=>$cartItem->priceTotal,
                         'status'=>1,
                         'shipping_fee'=>40,
                         'payment_method'=>1,
-                        'guest_checkout'=>1,
-                        ]
-                    ]));
-
-                    dd($orders);
-
+                        'guest_checkout'=>1, 
+                    ]); 
+                    
+                   $orderItems =  $order->orderItems()->create([
+                        'product_id'=>$cartItem->id,
+                        'qty'=>$cartItem->qty,
+                        'unit_price'=>$cartItem->price
+                    ]);
+                      
+                    // $order->address()->create($this->form->all());
+ 
 
                 //    $order =  Order::create(
                 //         [
@@ -85,12 +96,18 @@ class Guest extends Component
                 //     $order->address()->create($this->form->all());
                     
                 } 
+                DB::commit();
+
+                CustomCart::destroy();
+                return redirect("/");
                
             } 
         } catch (\Exception $e) {
+            
+            dd($e);
             Log::error($e);
 
-            \DB::rollback();
+            DB::rollback();
             //throw $th;
             
         }

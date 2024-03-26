@@ -33,6 +33,10 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+  public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -56,7 +60,7 @@ class OrderResource extends Resource
                             ->schema(
                                 [
                                     Grid::make()
-                                        ->relationship('address')
+                                        ->relationship('shippingAddressDetails')
                                         ->schema(
                                             self::getAddressForm(),
                                         )

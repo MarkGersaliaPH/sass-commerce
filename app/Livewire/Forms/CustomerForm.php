@@ -15,9 +15,5 @@ class CustomerForm extends Form
     
     #[Validate('required')] 
     public $contact_no; 
-
-
-    public function store(){
-        $this->validate();
-    }
+ 
 }

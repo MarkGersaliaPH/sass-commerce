@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Yajra\Address\HasAddress;
 
 class Order extends Model
 {
     use HasFactory;
+    use HasAddress;
 
     protected $fillable  = ['user_id', 'store_id', 'total_amount', 'shipping_fee', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method','guest_checkout','customer_id'];
 
@@ -36,7 +38,7 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'orderItems');
     }
 
-    public function address(): MorphTo
+    public function shippingAddressDetails(): MorphTo
     {
         return $this->morphTo(Address::class);
     } 
