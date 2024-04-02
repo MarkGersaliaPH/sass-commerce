@@ -31,6 +31,7 @@
          </div>
          <span class="text-1000 fw-bold">{!! $product->display_price !!}</span>
      </div>
- </div>
  <a class="stretched-link"  href="{{ route('product.detail', $product->id) }}"></a>
+     
+ </div>
   

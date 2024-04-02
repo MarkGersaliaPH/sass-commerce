@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
@@ -17,7 +18,7 @@ class Checkout extends Component
     public function render()
     { 
         if(request()->has('guest')){
-            return view('livewire.checkout.guest');
+            return view('livewire.checkout.guest',compact('order'));
         }
         return view('livewire.checkout');
     }
