@@ -39,6 +39,8 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $recordTitleAttribute = 'order_id';
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::whereStoreId(Filament::getTenant())->count();
@@ -133,16 +135,6 @@ class OrderResource extends Resource
                                     ])
                                 ])
                         ]),
-                        Section::make('Billing')
-                            ->disabled()
-                            ->schema([
-                                TextInput::make('shipping_fee')->numeric(),
-                                TextInput::make('tax')->numeric(),
-                                TextInput::make('total_amount')->numeric()->required(),
-                                Select::make('payment_method')
-                                    ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
-
-                            ]),
 
                     ])->columnSpan(2),
                     Grid::make()->schema([
@@ -150,7 +142,20 @@ class OrderResource extends Resource
                             ->schema([
                                 Placeholder::make('Ordered At')
                                     ->content(fn (Order $record): string => $record->created_at->format('F d,Y h:m A ') . "({$record->created_at->diffForHumans()})")
-                            ])
+                            ]),
+                            
+                        Section::make('Billing')
+                        ->disabled()
+                        ->schema([
+                            TextInput::make('total_amount')->numeric()->required(),
+
+                            TextInput::make('shipping_fee')->numeric(),
+                            TextInput::make('tax')->numeric(),
+                            TextInput::make('total_amount')->numeric()->required(),
+                            Select::make('payment_method')
+                                ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
+
+                        ]),
                     ])->columnSpan(1)
                 ])
 

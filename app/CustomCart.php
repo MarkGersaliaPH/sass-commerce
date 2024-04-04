@@ -10,7 +10,9 @@ class CustomCart extends Cart
     }
 
     public function totalWithShippingFee()
-    {
-        return number_format(self::total() + $this->shipping_fee(),2);
+    { 
+        $total = floatval(str_replace(',', '', self::total())) + $this->shipping_fee();
+
+        return number_format($total,2);
     }
 }

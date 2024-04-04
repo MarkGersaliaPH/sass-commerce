@@ -39,8 +39,7 @@ class Guest extends Component
         $groupped = $cart_data->groupBy(function ($item, $key) {
             return $item->model->store->id;
         });
-
-        dd($groupped);
+ 
         DB::beginTransaction();
         try {
 
@@ -49,20 +48,21 @@ class Guest extends Component
             );
 
             foreach ($groupped as $store_id => $cartItems) {
-
+ 
                 $orderTotal = 0;
                 $tax = 0;
                 $subTotal = 0;
  
+                $shipping_fee = config('shipping_fee',40);
                 $order = $guest->orders()->create(
                     [
-                        'order_id' => $this->generateOrderId(),
+                        'order_id' => "",
                         'store_id' => $store_id,
                         'total_amount' => $orderTotal,
                         'tax' => $tax,
                         'sub_total' => $subTotal,
                         'status' => OrderStatus::New,
-                        'shipping_fee' => 40,
+                        'shipping_fee' => $shipping_fee,
                         'payment_method' => 1,
                         'guest_checkout' => 1,
                     ]
@@ -70,9 +70,10 @@ class Guest extends Component
 
 
                 foreach ($cartItems as $cartItem) {
-
-                    dd($cartItem->tax);
+                     
                     $orderTotal += $cartItem->priceTotal;
+                    $subTotal += $cartItem->subtotal;
+                    $tax += $this->calculateTax($cartItem->price); 
                     $order->orderItems()->create([
                         'product_id' => $cartItem->id,
                         'qty' => $cartItem->qty,
@@ -104,7 +105,11 @@ class Guest extends Component
                     //     $order->address()->create($this->form->all());
 
                 }
-                $order->total_amount = $orderTotal;
+ 
+                $order->sub_total = $orderTotal;
+                $order->tax = $tax;
+                $order->total_amount = $subTotal + $shipping_fee + $tax;
+                $order->order_id = $this->generateOrderId($order);
                 $order->save();
             }
             $this->form->save($order->id);
@@ -124,20 +129,29 @@ class Guest extends Component
         }
     }
 
-    private function generateOrderId()
+    public function calculateTax($price)
+    {
+        // Define the tax rate (12%)
+        $taxRate = 12;
+
+        // Calculate the total price
+        $totalPrice = $price;
+ 
+        // Calculate the tax amount
+        $taxAmount = ($taxRate/100) * $totalPrice;
+ 
+        // Return the tax amount
+        return $taxAmount;
+    }
+
+    private function generateOrderId($order)
     {
         // Get the current date in the format YYYYMMDD
         $date = Carbon::now()->format('Ymd');
-
-        // Get the last order ID from the database
-        $lastOrder = Order::latest()->first();
-
-        // Extract the numeric part of the last order ID and increment it by 1
-        $lastID = $lastOrder ? intval(substr($lastOrder->id, strrpos($lastOrder->id, '-') + 1)) : 0;
-        $newID = $lastID + 1;
+ 
 
         // Generate the new order ID
-        $orderID = 'O-' . $date . '-' . sprintf('%04d', $newID);
+        $orderID = 'O-' . $date . '-' . $order->id;
 
         return $orderID;
     }

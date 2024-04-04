@@ -14,7 +14,7 @@ enum OrderStatus: string implements HasColor, HasIcon, HasLabel
 
     case Shipped = 'shipped';
 
-    case Delivered = 'delivered';
+    case Completed = 'completed';
 
     case Cancelled = 'cancelled';
 
@@ -24,7 +24,7 @@ enum OrderStatus: string implements HasColor, HasIcon, HasLabel
             self::New => 'New',
             self::Processing => 'Processing',
             self::Shipped => 'Shipped',
-            self::Delivered => 'Delivered',
+            self::Completed => 'Completed',
             self::Cancelled => 'Cancelled',
         };
     }
@@ -34,7 +34,7 @@ enum OrderStatus: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::New => 'info',
             self::Processing => 'warning',
-            self::Shipped, self::Delivered => 'success',
+            self::Shipped, self::Completed => 'success',
             self::Cancelled => 'danger',
         };
     }
@@ -45,7 +45,7 @@ enum OrderStatus: string implements HasColor, HasIcon, HasLabel
             self::New => 'heroicon-m-sparkles',
             self::Processing => 'heroicon-m-arrow-path',
             self::Shipped => 'heroicon-m-truck',
-            self::Delivered => 'heroicon-m-check-badge',
+            self::Completed => 'heroicon-m-check-badge',
             self::Cancelled => 'heroicon-m-x-circle',
         };
     }
