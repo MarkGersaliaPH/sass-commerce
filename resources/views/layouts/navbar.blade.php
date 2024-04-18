@@ -8,7 +8,7 @@
               <p class="mb-0 fw-bold text-lg-center">Deliver to: <i class="fas fa-map-marker-alt text-warning mx-2"></i><span class="fw-normal">Current Location </span><span>Mirpur 1 Bus Stand, Dhaka</span></p>
             </div>
             {{-- <form class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0"> --}}
-              <button class="btn btn-white text-warning rounded" type="submit"> <i class="fas fa-user me-2"></i>Login</button>
+              <a href="{{route('login')}}" class="btn btn-white text-warning rounded" type="submit"> <i class="fas fa-user me-2"></i>Login</a>
               {{-- @livewire('cart-counter')
               @livewire('cart-clear') --}}
             {{-- </form> --}}

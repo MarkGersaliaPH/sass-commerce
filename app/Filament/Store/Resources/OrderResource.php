@@ -4,9 +4,11 @@ namespace App\Filament\Store\Resources;
 
 use App\Enums\OrderStatus;
 use App\Filament\Store\Resources\OrderResource\Pages;
+use App\Filament\Store\Resources\OrderResource\Widgets\OrderChart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Carbon\Carbon;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
@@ -31,6 +33,10 @@ use Filament\Infolists\Components\Actions\Action;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\QueryBuilder;
+use Filament\Tables\Filters\QueryBuilder\Constraints\BooleanConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints\SelectConstraint;
 
 class OrderResource extends Resource
 {
@@ -43,8 +49,9 @@ class OrderResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::whereStoreId(Filament::getTenant())->count();
+        return static::getModel()::whereStoreId(Filament::getTenant()->id)->count();
     }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -53,15 +60,15 @@ class OrderResource extends Resource
                 TextEntry::make('email'),
                 TextEntry::make('notes')
                     ->columnSpanFull(),
-                    Action::make('resetStars')
+                Action::make('resetStars')
                     ->icon('heroicon-m-x-mark')
                     ->color('danger')
                     ->requiresConfirmation()
-                    // ->action(function (ResetStars $resetStars) {
-                    //     $resetStars();
-                    // })
-                            
-                    ]);
+                // ->action(function (ResetStars $resetStars) {
+                //     $resetStars();
+                // })
+
+            ]);
     }
 
     public static function form(Form $form): Form
@@ -77,11 +84,6 @@ class OrderResource extends Resource
                 ]),
                 Grid::make(3)->schema([
                     Grid::make()->schema([
-                        // Section::make()->schema([
-                        //     Forms\Components\Select::make('user_id')
-                        //         ->relationship(name: 'user', titleAttribute: 'name', ignoreRecord: true, modifyQueryUsing: fn (Builder $query) => $query->where('type', 3),)
-                        //         ->searchable(),
-                        // ]),
                         Section::make('Shipping Details')
                             ->schema(
                                 [
@@ -143,19 +145,17 @@ class OrderResource extends Resource
                                 Placeholder::make('Ordered At')
                                     ->content(fn (Order $record): string => $record->created_at->format('F d,Y h:m A ') . "({$record->created_at->diffForHumans()})")
                             ]),
-                            
+
                         Section::make('Billing')
-                        ->disabled()
-                        ->schema([
-                            TextInput::make('total_amount')->numeric()->required(),
+                            ->disabled()
+                            ->schema([
+                                TextInput::make('shipping_fee')->numeric(),
+                                TextInput::make('tax')->numeric(),
+                                TextInput::make('total_amount')->numeric()->required(),
+                                Select::make('payment_method')
+                                    ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
 
-                            TextInput::make('shipping_fee')->numeric(),
-                            TextInput::make('tax')->numeric(),
-                            TextInput::make('total_amount')->numeric()->required(),
-                            Select::make('payment_method')
-                                ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
-
-                        ]),
+                            ]),
                     ])->columnSpan(1)
                 ])
 
@@ -175,8 +175,8 @@ class OrderResource extends Resource
             ->columns([
 
                 Tables\Columns\TextColumn::make('order_id')
-                    ->sortable(), 
-                Tables\Columns\TextColumn::make('order_items_count')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('order_items_count') 
                     ->numeric()
                     ->label("Products")
                     ->counts('orderItems'),
@@ -184,22 +184,15 @@ class OrderResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('shipping_fee')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
+                    ->sortable() 
+            ]) 
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -226,5 +219,5 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
-    }
+    } 
 }

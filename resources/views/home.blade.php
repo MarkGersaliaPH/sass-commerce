@@ -1,5 +1,7 @@
 @extends('layouts.front')
 @section('content')
+
+{{asset("template/assets/img/favicons/apple-touch-icon.png")}}
     <!-- ============================================-->
     <!-- <section> begin ============================-->
     <section class="py-4 overflow-hidden">

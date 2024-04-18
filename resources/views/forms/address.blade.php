@@ -39,7 +39,7 @@
     </div>
     <div class="form-group  mb-2 ">
         <label>Street:</label>
-        <input type="text" class="form-control" wire:model="form.street"  > 
+        <input type="text" class="form-control" name="street" wire:model="form.street"  > 
         @error('form.street') <span class="error">{{ $message }}</span> @enderror
 
     </div>

@@ -1,7 +1,7 @@
 <div class=""> 
     <div class="form-group">
         <label>Name:</label>
-        <input wire:model="customer.name" type="text" name="name" class="form-control">  
+        <input wire:model="customer.name" value="{{auth()->user()->name}}" type="text" name="name" class="form-control">  
         @error('customer.name') <span class="error">{{ $message }}</span> @enderror
     </div>
     <div class="form-group row">
@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-6">
             <label>Email:</label>
-            <input wire:model="customer.email" type="email" name="email" class="form-control">
+            <input wire:model="customer.email" type="email"  value="{{auth()->user()->email}}" name="email" class="form-control">
         </div>
     </div>
 </div>

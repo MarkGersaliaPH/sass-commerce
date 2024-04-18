@@ -79,31 +79,7 @@ class Guest extends Component
                         'qty' => $cartItem->qty,
                         'unit_price' => $cartItem->price
                     ]);
-
-
-                    //    $order =  Order::create(
-                    //         [
-                    //         'store_id'=>$store_id,
-                    //         'total_amount'=>$cartItem->priceTotal,
-                    //         'status'=>1,
-                    //         'shipping_fee'=>40,
-                    //         'payment_method'=>1,
-                    //         'guest_checkout'=>1,
-                    //         ]
-                    //     );
-
-
-                    //     dd($order);
-
-                    //     $order->orderItems()->create([
-                    //         'product_id'=>$cartItem->id,
-                    //         'qty'=>$cartItem->qty,
-                    //         'unit_price'=>$cartItem->price
-                    //     ]);
-
-
-                    //     $order->address()->create($this->form->all());
-
+ 
                 }
  
                 $order->sub_total = $orderTotal;
@@ -115,8 +91,8 @@ class Guest extends Component
             $this->form->save($order->id);
             DB::commit();
 
-            // CustomCart::destroy();
-            // return redirect("/");
+            CustomCart::destroy();
+            return redirect("/");
             return back();
         } catch (\Exception $e) {
 
