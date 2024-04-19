@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductUtility;
 use App\Filament\Store\Resources\ProductResource\Pages;
 use App\Filament\Store\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,6 +21,14 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = "Shop";
+    
+    public static function getNavigationBadge(): ?string
+    {  
+        return static::getModel()::whereStoreId(Filament::getTenant()->id)->count();
+    }
+
+    
     public static function form(Form $form): Form
     {
         return $form

@@ -19,8 +19,7 @@ use Livewire\Component;
 class Guest extends Component
 {
 
-    public AddressForm $form;
-    public CustomerForm $customer;
+    public AddressForm $form; 
 
     public function render()
     {
@@ -30,8 +29,7 @@ class Guest extends Component
     public function save()
     {
 
-        $this->form->validate();
-        $this->customer->validate();
+        $this->form->validate(); 
 
         // Execution doesn't reach here if validation fails.
         $cart_data = CustomCart::content();
@@ -43,9 +41,9 @@ class Guest extends Component
         DB::beginTransaction();
         try {
 
-            $guest = ModelsGuest::create(
-                $this->customer->all()
-            );
+            // $guest = ModelsGuest::create(
+            //     $this->customer->all()
+            // );
 
             foreach ($groupped as $store_id => $cartItems) {
  
@@ -54,7 +52,7 @@ class Guest extends Component
                 $subTotal = 0;
  
                 $shipping_fee = config('shipping_fee',40);
-                $order = $guest->orders()->create(
+                $order = Order::create(
                     [
                         'order_id' => "",
                         'store_id' => $store_id,
@@ -73,7 +71,7 @@ class Guest extends Component
                      
                     $orderTotal += $cartItem->priceTotal;
                     $subTotal += $cartItem->subtotal;
-                    $tax += $this->calculateTax($cartItem->price); 
+                    $tax += $this->calculateTax($cartItem->price) * $cartItem->qty; 
                     $order->orderItems()->create([
                         'product_id' => $cartItem->id,
                         'qty' => $cartItem->qty,
@@ -88,7 +86,7 @@ class Guest extends Component
                 $order->order_id = $this->generateOrderId($order);
                 $order->save();
             }
-            $this->form->save($order->id);
+            $this->form->save($order);
             DB::commit();
 
             CustomCart::destroy();

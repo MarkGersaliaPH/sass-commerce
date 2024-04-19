@@ -10,17 +10,27 @@ class AddressForm extends Form
 {
     //
 
-    public $region_id = 13;
-    public $province_id = 1374;
-    public $city_id = 137401;
+    public $region = "National Capital Region (NCR)";
+    public $province = "NCR, Second District (Not a Province)";
+    public $city = "City of Mandaluyong";
+    public $address;
 
 
     #[Validate('required')]
-    public $barangay_id;
+    public $barangay;
 
 
     #[Validate('required')]
     public $street;
+
+    
+    public $email; 
+
+    #[Validate('required')] 
+    public $name;  
+    
+    #[Validate('required')] 
+    public $contact_no; 
 
     public $regions = [];
     public $provinces = [];
@@ -30,19 +40,30 @@ class AddressForm extends Form
 
     public function getOptions()
     {
-        $data['regions'] = \DB::table("regions")->get();
+
+
+    // public $region_id = 13;
+    // public $province_id = 1374;
+    // public $city_id = 137401;
+
+        $regions =  \DB::table("regions")->get();
+        $data['regions'] = $regions;
 
         $data['provinces'] = \DB::table("provinces")
-            ->where('region_id', $this->region_id)
+            ->where('name', $this->province) 
             ->get();
+            
 
-        $data['cities'] = \DB::table("cities")
-            ->where('province_id', $this->province_id)
+            $city = \DB::table("cities")
+            ->where('name', $this->city)
             ->get();
+            
+
+        $data['cities'] = $city;
 
 
         $data['barangays'] = \DB::table("barangays")
-            ->where('city_id', $this->city_id)
+            ->where('city_id', 137401)
             ->get();
 
 
@@ -51,12 +72,8 @@ class AddressForm extends Form
 
 
 
-    public function save($order_id)
+    public function save($order)
     {
-        $address = new Address;
-        $address->model_id = $order_id;
-        $address->model_type = Address::class;
-        $address->fill($this->all());
-        $address->save();
+        $order->shipping_details()->create($this->all()); 
     }
 }

@@ -12,10 +12,10 @@
      
         <form wire:submit="save">
             
-            <div class="card card-body mb-3">
+            {{-- <div class="card card-body mb-3">
                 <h5 class="mb-3">Customer Details</h5>
                 @include('forms.customer')
-            </div>
+            </div> --}}
 
             <div class="card card-body mb-3">
                 <h5 class="mb-3">Shipping Details</h5> 

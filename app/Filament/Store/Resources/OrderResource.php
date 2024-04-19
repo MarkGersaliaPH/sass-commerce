@@ -47,9 +47,21 @@ class OrderResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'order_id';
 
+
+    protected static ?string $navigationBadgeTooltip = 'The number of new orders';
+
+
+    protected static ?string $navigationGroup = "Shop";
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return "danger";
+    }
+
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::whereStoreId(Filament::getTenant()->id)->count();
+        // return dd(Order::whereStoreId()->count());
+        return static::getModel()::whereStoreId(Filament::getTenant()->id)->new()->count();
     }
 
     public static function infolist(Infolist $infolist): Infolist
@@ -85,23 +97,28 @@ class OrderResource extends Resource
                 Grid::make(3)->schema([
                     Grid::make()->schema([
                         Section::make('Shipping Details')
+                            ->relationship('shipping_details')
+                            ->disabled()
                             ->schema(
                                 [
-                                    Grid::make(3)
+                                    TextInput::make('name'),
+                                    Grid::make(2)
                                         ->schema([
-                                            Placeholder::make('Name')
-                                                ->content(fn (Order $record): string => $record->guestCustomer->name ?? ""),
-                                            Placeholder::make('Contact no')
-                                                ->content(fn (Order $record): string => $record->guestCustomer->contact_no ?? ""),
-                                            Placeholder::make('Email')
-                                                ->content(fn (Order $record): string => $record->guestCustomer->email ?? ""),
-
+                                            TextInput::make('contact_no'),
+                                            TextInput::make('email'),
                                         ]),
-                                    Placeholder::make('Address')
-                                        ->content(fn (Order $record): string => $record->displayAddress() ?? "")
-                                        ->columnSpan('full'),
-
-
+                                    Grid::make(2)
+                                        ->schema([
+                                            TextInput::make('region'),
+                                            TextInput::make('province'),
+                                        ]),
+                                    Grid::make(2)
+                                        ->schema([
+                                            TextInput::make('city'),
+                                            TextInput::make('barangay'),
+                                        ]),
+                                    TextInput::make('street'),
+                                    TextInput::make('address'),
                                 ]
                             ),
                         Section::make()->schema([
@@ -149,6 +166,8 @@ class OrderResource extends Resource
                         Section::make('Billing')
                             ->disabled()
                             ->schema([
+                                TextInput::make('total_amount')->numeric()->required(),
+
                                 TextInput::make('shipping_fee')->numeric(),
                                 TextInput::make('tax')->numeric(),
                                 TextInput::make('total_amount')->numeric()->required(),
@@ -176,7 +195,7 @@ class OrderResource extends Resource
 
                 Tables\Columns\TextColumn::make('order_id')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('order_items_count') 
+                Tables\Columns\TextColumn::make('order_items_count')
                     ->numeric()
                     ->label("Products")
                     ->counts('orderItems'),
@@ -184,15 +203,15 @@ class OrderResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('shipping_fee')
-                ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(true)
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable() 
-            ]) 
+                    ->sortable()
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -219,5 +238,5 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
-    } 
+    }
 }
