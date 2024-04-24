@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements  FilamentUser, HasTenants
+class User extends Authenticatable implements FilamentUser, HasTenants
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -51,28 +51,52 @@ class User extends Authenticatable implements  FilamentUser, HasTenants
         'password' => 'hashed',
     ];
 
-    
+    const ROLE_ADMIN = '1';
+
+    const ROLE_STORE = '2';
+
+    const ROLE_CUSTOMER = '3';
+
+    public function isAdmin()
+    {
+        return $this->type == self::ROLE_ADMIN;
+    }
+
+    public function isStore()
+    {
+        return $this->type == self::ROLE_STORE;
+    }
+
+    public function isCustomer()
+    {
+        return $this->type == self::ROLE_CUSTOMER;
+    }
+
     public function getTenants(Panel $panel): Collection
     {
         return $this->stores;
     }
-    
+
     public function stores(): BelongsToMany
     {
         return $this->belongsToMany(Store::class);
     }
- 
+
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
-    
+
+    public function addresses()
+    {
+        return $this->hasMany(CustomerAddress::class);
+    }
+
     public function canAccessTenant(Model $tenant): bool
     {
         return $this->stores->contains($tenant);
     }
 
-    
     public function canAccessPanel(Panel $panel): bool
     {
         return true;

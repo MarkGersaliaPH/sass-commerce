@@ -76,6 +76,6 @@ return [
 
     ],
 
-    'shipping_fee'=>40
+    'shipping_fee' => 40,
 
 ];

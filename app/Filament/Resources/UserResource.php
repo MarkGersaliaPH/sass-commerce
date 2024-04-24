@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
 {
@@ -35,11 +32,11 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->visibleOn('create'),
-                    Forms\Components\Select::make('type')
-                        ->options(['1'=>'Admin','2'=>'Store Staff','3'=>'Customer'])
-                        ->required() ,
-                        Forms\Components\Select::make('store_id') 
-                            ->relationship(name: 'stores', titleAttribute: 'name') ,
+                Forms\Components\Select::make('type')
+                    ->options(['1' => 'Admin', '2' => 'Store Staff', '3' => 'Customer'])
+                    ->required(),
+                Forms\Components\Select::make('store_id')
+                    ->relationship(name: 'stores', titleAttribute: 'name'),
             ]);
     }
 
@@ -50,7 +47,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(), 
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

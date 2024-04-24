@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->dropColumn('category_id','is_enabled');
+            $table->dropColumn('category_id', 'is_enabled');
         });
     }
 };

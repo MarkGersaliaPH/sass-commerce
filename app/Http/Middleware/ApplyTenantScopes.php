@@ -21,17 +21,17 @@ class ApplyTenantScopes
     public function handle(Request $request, Closure $next): Response
     {
         Product::addGlobalScope(
-            fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
+            fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant())
         );
-        
+
         // Category::addGlobalScope(
         //     fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
         // );
-        
+
         Order::addGlobalScope(
-            fn(Builder $query) => $query->whereBelongsTo(Filament::getTenant())
+            fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant())
         );
-        
+
         return $next($request);
     }
 }

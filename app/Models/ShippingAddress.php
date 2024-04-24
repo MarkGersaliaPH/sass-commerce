@@ -15,13 +15,12 @@ class ShippingAddress extends Model
         'contact_no',
         'contact_name',
         'street',
-        'barangay', 
+        'barangay',
         'city',
         'state',
-        'zip'
+        'zip',
     ];
- 
-    
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

@@ -3,25 +3,17 @@
 namespace App\Filament\Store\Resources\OrderResource\Pages;
 
 use App\Filament\Store\Resources\OrderResource;
-use App\Models\Category;
 use App\Models\Product;
-use Filament\Actions;
-use Filament\Facades\Filament;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
-use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CreateOrder extends CreateRecord
 {
@@ -54,7 +46,7 @@ class CreateOrder extends CreateRecord
                         ->relationship('orderItems')
                         ->schema([
                             // ...
-                            Grid::make(3)->schema([ 
+                            Grid::make(3)->schema([
                                 Select::make('product_id')
                                     ->label('Product')
                                     ->options(Product::query()->pluck('name', 'id'))
@@ -86,8 +78,8 @@ class CreateOrder extends CreateRecord
                                     ->columnSpan([
                                         'md' => 3,
                                     ]),
-                            ])
-                        ])
+                            ]),
+                        ]),
 
                 ]),
             Step::make('Billing')
@@ -96,17 +88,17 @@ class CreateOrder extends CreateRecord
                     TextInput::make('shipping_fee')->numeric()->required(),
 
                     Section::make('Shipping Details')
-                    ->schema(
-                        [
-                            Grid::make()
-                                ->relationship('address')
-                                ->schema(
-                                    OrderResource::getAddressForm(),
-                                )
-                        ]
-                    ),
+                        ->schema(
+                            [
+                                Grid::make()
+                                    ->relationship('address')
+                                    ->schema(
+                                        OrderResource::getAddressForm(),
+                                    ),
+                            ]
+                        ),
                     Select::make('payment_method')
-                        ->options(['1' => "Cash on Delivery", "2" => "Gcash"])
+                        ->options(['1' => 'Cash on Delivery', '2' => 'Gcash']),
                 ]),
         ];
     }

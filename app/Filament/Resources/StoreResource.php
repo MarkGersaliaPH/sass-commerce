@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\StoreResource\Pages;
-use App\Filament\Resources\StoreResource\RelationManagers;
 use App\Models\Store;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -12,8 +11,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class StoreResource extends Resource
 {
@@ -28,21 +25,21 @@ class StoreResource extends Resource
                 Section::make([
 
                     FileUpload::make('avatar')
-                    ->avatar()
-                    ->imageEditor()
-                    ->directory("stores")
-                    ->circleCropper(),
+                        ->avatar()
+                        ->imageEditor()
+                        ->directory('stores')
+                        ->circleCropper(),
                     Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('contact_no')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255),
-                ])
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('contact_no')
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('address')
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('email')
+                        ->email()
+                        ->maxLength(255),
+                ]),
             ]);
     }
 
@@ -52,8 +49,8 @@ class StoreResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar')
                     ->searchable(),
-                    Tables\Columns\TextColumn::make('name')
-                        ->searchable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('contact_no')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')

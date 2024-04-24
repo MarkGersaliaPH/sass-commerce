@@ -2,7 +2,6 @@
 
 namespace App\Filament\Store\Resources\OrderResource\Widgets;
 
-use App\Enums\OrderStatus;
 use App\Models\Order;
 use Carbon\Carbon;
 use Filament\Facades\Filament;
@@ -10,14 +9,12 @@ use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-
 class OrderChart extends ChartWidget
 {
     protected static ?string $heading = 'Orders Chart';
 
     // protected int | string | array $columnSpan = 'full';
     public ?string $filter = 'this_week';
-
 
     protected function getFilters(): ?array
     {
@@ -30,7 +27,6 @@ class OrderChart extends ChartWidget
         ];
     }
 
-
     protected function getFilterForm()
     {
 
@@ -38,14 +34,13 @@ class OrderChart extends ChartWidget
         $start = null;
         $end = null;
 
-
         switch ($activeFilter) {
             case 'this_week':
                 $start = now()->startOfWeek();
                 $end = now()->endOfWeek();
                 break;
             case 'last_week':
-                $start = now()->startOfWeek()->subWeek();;
+                $start = now()->startOfWeek()->subWeek();
                 $end = now()->endOfWeek()->subWeek();
                 break;
             case 'last_month':
@@ -69,9 +64,7 @@ class OrderChart extends ChartWidget
     protected function getData(): array
     {
 
-
         $filter = $this->getFilterForm();
-
 
         // Totals per month
         $data = Trend::query(Order::whereStoreId(Filament::getTenant()->id))
@@ -80,11 +73,10 @@ class OrderChart extends ChartWidget
                 end: $filter['end'],
             );
 
-        $data = $this->filter == "this_year" ? $data->perMonth() : $data->perDay();
+        $data = $this->filter == 'this_year' ? $data->perMonth() : $data->perDay();
         $data = $data->count();
 
-
-        $format = $this->filter == "this_year" ? 'F' : "M-d-y";
+        $format = $this->filter == 'this_year' ? 'F' : 'M-d';
 
         return [
             'datasets' => [

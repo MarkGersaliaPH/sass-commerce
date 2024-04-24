@@ -10,12 +10,7 @@
     <div class="row my-3">
         <div class="col-xl-8">
      
-        <form wire:submit="save">
-            
-            <div class="card card-body mb-3">
-                <h5 class="mb-3">Customer Details</h5>
-                @include('forms.customer')
-            </div>
+        <form wire:submit="save"> 
 
             <div class="card card-body mb-3">
                 <h5 class="mb-3">Shipping Details</h5> 

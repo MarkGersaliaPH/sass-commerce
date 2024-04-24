@@ -9,6 +9,7 @@ class ProductList extends Component
     public function render()
     {
         $products = \App\Models\Product::with('store')->isEnabled()->latest()->get();
-        return view('livewire.product-list',['products'=>$products]);
+
+        return view('livewire.product-list', ['products' => $products]);
     }
 }

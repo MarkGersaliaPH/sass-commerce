@@ -9,20 +9,18 @@ class OrderShippingDetail extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
-        'order_id', 
-        "name",
-        "contact_no",
-        "email",
+        'order_id',
+        'name',
+        'contact_no',
+        'email',
         'region',
         'city',
         'province',
         'barangay',
         'street',
-        'address', 
+        'address',
     ];
-
 
     public function order()
     {

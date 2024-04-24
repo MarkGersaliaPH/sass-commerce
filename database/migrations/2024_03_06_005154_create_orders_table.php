@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id'); 
+            $table->foreignId('user_id');
             $table->foreignId('store_id');
             $table->decimal('total_amount', 10, 2);
             $table->decimal('shipping_fee', 10, 2);
-            $table->text('shipping_address'); 
-            $table->text('notes'); 
+            $table->text('shipping_address');
+            $table->text('notes');
             $table->integer('status')->default(1);
             $table->timestamps();
         });

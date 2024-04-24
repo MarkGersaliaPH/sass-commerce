@@ -8,12 +8,11 @@ use Livewire\Form;
 class CustomerForm extends Form
 {
     //
-    public $email; 
+    public $email;
 
-    #[Validate('required')] 
-    public $name;  
-    
-    #[Validate('required')] 
-    public $contact_no; 
- 
+    #[Validate('required')]
+    public $name;
+
+    #[Validate('required')]
+    public $contact_no;
 }

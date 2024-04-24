@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->dropColumn('guest_checkout','customer_id');
+            $table->dropColumn('guest_checkout', 'customer_id');
         });
     }
 };

@@ -15,13 +15,11 @@ class Product extends Model
 
     protected $fillable = ['name', 'images', 'description', 'price', 'promo_price', 'created_by_id', 'store_id', 'category_id', 'is_enabled', 'preparation_time'];
 
-
     protected $casts = [
         'images' => 'array',
     ];
 
-
-    protected $appends  = ['image', 'display_price', 'discount_percentage', 'display_preparation_time', 'final_price'];
+    protected $appends = ['image', 'display_price', 'discount_percentage', 'display_preparation_time', 'final_price'];
 
     public function store()
     {
@@ -45,7 +43,7 @@ class Product extends Model
 
     public function getImageAttribute()
     {
-        return $this->images ? asset('storage/' . $this->images[0]) : null;
+        return $this->images ? asset('storage/'.$this->images[0]) : null;
     }
 
     public function getDisplayPriceAttribute()
@@ -53,7 +51,8 @@ class Product extends Model
         if ($this->promo_price) {
             return "<span class='text-strike'>P{$this->price}</span>  - <span class='text-danger'>P{$this->promo_price}</span>";
         }
-        return "P" . $this->price;
+
+        return 'P'.$this->price;
     }
 
     public function setFinalPriceAttribute()
@@ -75,7 +74,6 @@ class Product extends Model
         return $query->where('is_enabled', true);
     }
 
-
     public function scopeIsDiscounted($query)
     {
         return $query->whereNotNull('promo_price');
@@ -84,6 +82,7 @@ class Product extends Model
     public function setDiscountPerecentage()
     {
         $percentageDecrease = (($this->price - $this->promo_price) / $this->price) * 100;
+
         return number_format(floatval($percentageDecrease));
     }
 
@@ -96,10 +95,9 @@ class Product extends Model
         return null;
     }
 
-
     public function getDisplayPreparationTimeAttribute()
     {
-        return $this->preparation_time ?  $this->preparation_time . " Mins" : null;
+        return $this->preparation_time ? $this->preparation_time.' Mins' : null;
     }
 
     public function calculateTax()
@@ -109,10 +107,10 @@ class Product extends Model
 
         // Calculate the total price
         $totalPrice = $this->setFinalPriceAttribute();
- 
+
         // Calculate the tax amount
-        $taxAmount = ($taxRate/100) * $totalPrice;
- 
+        $taxAmount = ($taxRate / 100) * $totalPrice;
+
         // Return the tax amount
         return $taxAmount;
     }

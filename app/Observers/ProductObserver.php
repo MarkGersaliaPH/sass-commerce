@@ -12,9 +12,9 @@ class ProductObserver
      */
     public function creating(Product $product): void
     {
-        // 
-        // $product->store_id = Filament::getTenant()->id; 
-        $product->created_by_id = auth()->id(); 
+        //
+        // $product->store_id = Filament::getTenant()->id;
+        $product->created_by_id = auth()->id();
         // $product->price = $product->price / 100;
     }
 

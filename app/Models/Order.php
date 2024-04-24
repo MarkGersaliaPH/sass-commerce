@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Yajra\Address\HasAddress;
 
 class Order extends Model
@@ -16,11 +15,13 @@ class Order extends Model
     use HasFactory;
     // use HasAddress;
 
-    protected $fillable  = ['user_id', 'store_id', 'total_amount', 'shipping_fee', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method', 'guest_checkout', 'customer_id', 'order_id', 'tax', 'sub_total'];
+    protected $fillable = ['user_id', 'store_id', 'total_amount', 'shipping_fee', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method', 'guest_checkout', 'customer_id', 'order_id', 'tax', 'sub_total'];
 
     protected $casts = [
         'status' => OrderStatus::class,
     ];
+
+    protected $appends = ['shipping_address_display'];
 
     public function store(): BelongsTo
     {
@@ -55,10 +56,10 @@ class Order extends Model
     public function displayAddress()
     {
         return sprintf(
-            '%s %s, %s',
-            $this->address->street ?? "",
-            $this->address->barangay->name ?? "",
-            $this->address->city->name ?? ""
+            '%s, Barangay %s, %s',
+            $this->shipping_details->street ?? '',
+            $this->shipping_details->barangay ?? '',
+            $this->shipping_details->city ?? ''
         );
     }
 
@@ -66,8 +67,14 @@ class Order extends Model
     {
         return $query->where('status', OrderStatus::New);
     }
-    
-    public function shipping_details(){
+
+    public function shipping_details()
+    {
         return $this->hasOne(OrderShippingDetail::class);
+    }
+
+    public function getShippingAddressDisplayAttribute()
+    {
+        return $this->displayAddress();
     }
 }

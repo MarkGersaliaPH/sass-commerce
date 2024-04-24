@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class CartCounter extends Component
 {
@@ -15,14 +15,11 @@ class CartCounter extends Component
         $this->count = Cart::count();
     }
 
-
     #[On('cart_updated')]
     public function updateCartCounter()
     {
         $this->count = Cart::count();
     }
-
-    
 
     public function render()
     {

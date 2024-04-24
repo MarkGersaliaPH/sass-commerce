@@ -6,30 +6,33 @@ use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
-
 class AddToCart extends Component
 {
-
     public $id;
 
     public $qty = 1;
-    
- 
-    public function mount($id){
+
+    public function mount($id)
+    {
         $this->id = $id;
     }
 
-    public function increase(){
+    public function increase()
+    {
         $this->qty = $this->qty + 1;
     }
-    public function decrease(){
-        $this->qty = $this->qty -1;
+
+    public function decrease()
+    {
+        $this->qty = $this->qty - 1;
     }
-    public function save(){ 
+
+    public function save()
+    {
         // dd($this->id,$this->qty);
         $product = Product::find($this->id);
-        $price = $product->getFinalPriceAttribute(); 
-        Cart::add($product->id, $product->name, $this->qty, $price)->associate(Product::class); 
+        $price = $product->getFinalPriceAttribute();
+        Cart::add($product->id, $product->name, $this->qty, $price)->associate(Product::class);
         $this->dispatch('cart_updated');
         $this->reset();
     }

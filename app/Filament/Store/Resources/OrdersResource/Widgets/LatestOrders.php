@@ -18,9 +18,9 @@ class LatestOrders extends BaseWidget
             ->columns([
 
                 Tables\Columns\TextColumn::make('status')->badge(),
-                Tables\Columns\TextColumn::make('order_id')->label("ID"),
+                Tables\Columns\TextColumn::make('order_id')->label('ID'),
                 Tables\Columns\TextColumn::make('total_amount')
-                ->label("Amount"),
+                    ->label('Amount'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->sortable(),
             ])

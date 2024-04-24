@@ -5,7 +5,7 @@
     <!-- ============================================-->
     <!-- <section> begin ============================-->
     <section class="py-4 overflow-hidden">
-
+ 
         {{-- @include('how-does-it-work') --}}
         @livewire('latest-discounted-products')
 

@@ -15,7 +15,7 @@ class ShopMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check() && !request()->has('guest')){
+        if (! auth()->check() && ! request()->has('guest')) {
             return redirect()->route('checkout.not-logged-in');
         }
 

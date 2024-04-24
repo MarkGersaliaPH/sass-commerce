@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             //
-            $table->dropColumn('unit_price','qty');
+            $table->dropColumn('unit_price', 'qty');
         });
     }
 };

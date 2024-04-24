@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Category;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
@@ -32,35 +31,34 @@ class ProductUtility
                 ->sortable(),
         ];
     }
+
     public static function getForm()
     {
         return [Grid::make(3)->schema([
             Grid::make()->schema([
                 Section::make('Details')
                     ->schema([
-                        // ... 
+                        // ...
                         TextInput::make('name')->required(),
                         Grid::make(2)->schema([
 
                             Select::make('category_id')
-                            ->label('Category')
-                            ->required()
-                            ->relationship(name: 'category', titleAttribute: 'name')
-                            ->preload() 
-                            ->searchable()
-                            ->createOptionForm([
-                               TextInput::make('name')
-                                    ->required() ,
-                            ]),
+                                ->label('Category')
+                                ->required()
+                                ->relationship(name: 'category', titleAttribute: 'name')
+                                ->preload()
+                                ->searchable()
+                                ->createOptionForm([
+                                    TextInput::make('name')
+                                        ->required(),
+                                ]),
 
-                            
-                            TextInput::make('preparation_time') 
-                            ->numeric()
-                            ->suffix('minutes')
-
+                            TextInput::make('preparation_time')
+                                ->numeric()
+                                ->suffix('minutes'),
 
                         ]),
-                        RichEditor::make('description')
+                        RichEditor::make('description'),
                     ]),
 
                 Section::make('Pricing')
@@ -75,7 +73,7 @@ class ProductUtility
                                 TextInput::make('promo_price')->numeric()
                                     ->prefix('PHP')
                                     ->maxValue(42949672.95),
-                            ])
+                            ]),
                     ]),
             ])->columnSpan(2),
             Grid::make()->schema([
@@ -83,18 +81,18 @@ class ProductUtility
                 Section::make('Product Status')
                     ->description('Disabling this settings will hide the product from the website')
                     ->schema([
-                        Toggle::make('is_enabled')->label('Enabled')
+                        Toggle::make('is_enabled')->label('Enabled'),
                     ]),
                 Section::make('Image List')
                     ->schema([
                         FileUpload::make('images')
-                            ->label("")
-                            ->directory("products")
+                            ->label('')
+                            ->directory('products')
                             ->maxFiles(5)
                             ->multiple(true)
                             ->imageEditor()
-                            ->columnSpanFull()
-                    ])
+                            ->columnSpanFull(),
+                    ]),
             ])->columnSpan(1),
 
         ])->columnSpanFull()];

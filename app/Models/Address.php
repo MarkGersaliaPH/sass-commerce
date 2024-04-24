@@ -22,11 +22,12 @@ class Address extends Model
         'city_id',
         'province_id',
         'barangay_id',
-        'street'
+        'street',
     ];
 
-    public function order(){
-        return $this->belongsTo(Order::class,'model_id');
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'model_id');
     }
 
     public function region(): BelongsTo
@@ -57,5 +58,4 @@ class Address extends Model
     {
         return $this->belongsTo(config('address.model.barangay', Barangay::class), 'barangay_id', 'code')->withDefault();
     }
-
 }

@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -13,14 +11,13 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static bool $isScopedToTenant = false;
 
     public static function form(Form $form): Form
@@ -28,12 +25,12 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 //
-                
+
                 TextInput::make('name'),
                 Select::make('parent_id')
                     ->label('Parent')
                     ->options(Category::all()->pluck('name', 'id'))
-                    ->searchable()
+                    ->searchable(),
             ]);
     }
 
@@ -45,7 +42,7 @@ class CategoryResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('parent.name'),
                 TextColumn::make('children_count')->counts('children'),
-                TextColumn::make('products_count')->counts('products')
+                TextColumn::make('products_count')->counts('products'),
             ])
             ->filters([
                 //
