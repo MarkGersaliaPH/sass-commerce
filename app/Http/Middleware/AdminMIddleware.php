@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CustomerMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,11 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->isCustomer()) {
+        if (auth()->user()->isAdmin()) {
             return $next($request);
         }
 
         return abort(401);
+
     }
 }

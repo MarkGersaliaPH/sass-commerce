@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Order;
+use App\Models\UserAddress;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -18,6 +19,10 @@ class ApplyCustomerScope
     public function handle(Request $request, Closure $next): Response
     {
         Order::addGlobalScope(
+            fn (Builder $query) => $query->whereUserId(auth()->id())
+        );
+        
+        UserAddress::addGlobalScope(
             fn (Builder $query) => $query->whereUserId(auth()->id())
         );
 

@@ -13,10 +13,13 @@ class OrderService
     public function saveOrder($addressFormData)
     {
         $cart_data = CustomCart::content();
+ 
         // Group the items by 'store_id'
         $groupped = $cart_data->groupBy(function ($item, $key) {
             return $item->model->store->id;
         });
+
+
 
         foreach ($groupped as $store_id => $cartItems) {
 
@@ -24,7 +27,10 @@ class OrderService
             $tax = 0;
             $subTotal = 0;
 
-            $shipping_fee = config('shipping_fee', 40);
+            
+
+            $shipping_fee = $groupped->count() >= 2 ? config('shipping_fee', 40) / 2 :  config('shipping_fee', 40);
+ 
             $order = Order::create(
                 [
                     'user_id' => Auth::check() ? auth()->id() : null,
@@ -60,8 +66,12 @@ class OrderService
 
             $order->shipping_details()->create($addressFormData->all());
 
-            CustomCart::destroy();
         }
+
+        $order->transaction_id = $this->generateTransactionId();
+
+        CustomCart::destroy();
+
     }
 
     public function calculateTax($price)
@@ -86,6 +96,17 @@ class OrderService
 
         // Generate the new order ID
         $orderID = 'O-'.$date.'-'.$order->id;
+
+        return $orderID;
+    }u
+
+    private function generateTransactionId($order)
+    {
+        // Get the current date in the format YYYYMMDD
+        $date = Carbon::now()->format('Ymd');
+
+        // Generate the new order ID
+        $orderID = 'T-'.$date;
 
         return $orderID;
     }

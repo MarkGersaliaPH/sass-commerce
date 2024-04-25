@@ -89,7 +89,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function addresses()
     {
-        return $this->hasMany(CustomerAddress::class);
+        return $this->hasMany(UserAddress::class);
     }
 
     public function canAccessTenant(Model $tenant): bool
