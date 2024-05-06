@@ -14,7 +14,7 @@ class ListOrders extends ListRecords
     public function getTabs(): array
     {
         return [
-            null => Tab::make('All'),
+            "All" => Tab::make()->query(fn ($query) => $query->where('user_id', auth()->id())),
             'new' => Tab::make()->query(fn ($query) => $query->where('status', 'new')->where('user_id', auth()->id())),
             'processing' => Tab::make()->query(fn ($query) => $query->where('status', 'processing')->where('user_id', auth()->id())),
             'shipped' => Tab::make()->query(fn ($query) => $query->where('status', 'shipped')->where('user_id', auth()->id())),

@@ -68,7 +68,7 @@ class OrderService
 
         }
 
-        $order->transaction_id = $this->generateTransactionId();
+        $order->transaction_id = $this->generateTransactionId($order);
 
         CustomCart::destroy();
 
@@ -98,7 +98,7 @@ class OrderService
         $orderID = 'O-'.$date.'-'.$order->id;
 
         return $orderID;
-    }u
+    }
 
     private function generateTransactionId($order)
     {

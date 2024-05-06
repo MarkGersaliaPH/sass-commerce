@@ -33,6 +33,7 @@ class Guest extends Component
             return redirect('/');
         } catch (\Exception $e) {
             Log::error($e);
+            dd($e);
             DB::rollback();
         }
     }
@@ -50,16 +51,5 @@ class Guest extends Component
 
         // Return the tax amount
         return $taxAmount;
-    }
-
-    private function generateOrderId($order)
-    {
-        // Get the current date in the format YYYYMMDD
-        $date = Carbon::now()->format('Ymd');
-
-        // Generate the new order ID
-        $orderID = 'O-'.$date.'-'.$order->id;
-
-        return $orderID;
-    }
+    } 
 }
