@@ -7,7 +7,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>SASS Ecommerce | Responsive, Ecommerce &amp; Business Templatee</title>
+    <title>{{config('app.name')}} | </title>
 
 
     <!-- ===============================================-->
@@ -34,4 +34,6 @@
 
     <script src="{{ asset('plugins/owl-carousel/docs/assets/vendors/jquery.min.js') }}"></script>
     <script src={{ asset('template/vendors/bootstrap/bootstrap.min.js') }}></script> 
+
+ 
   </head>

@@ -9,15 +9,17 @@
         </nav>
 
         <div class="row">
-            <div class="col-md-5">
-                <img src="{{ $product->image }}" alt="" class="img-fluid shadow mb-4 rounded-3">
+            <div class="col-md-8">
+                <img src="{{ $product->image }}" alt="" class="img-fluid w-100 mb-4 rounded-3">
+
             </div>
-            <div class="col-md-7">
-                <h4 class=" fw-normal text-truncate mb-1">{{ $product->name }}</h4>
-                <h5 class="   fw-normal text-muted text-truncate mb-1">{{ $product->category->name }}</h5>
+            <div class="col-md-4">
+                <h6 class="   fw-light text-muted text-truncate mb-1">{{ $product->category->name }}</h6>
+
+                <h1 class=" fw-normal mb-1">{{ $product->name }}</h1>
                 <div class="price"><span class="mr-2">
 
-                        <h4>{!! $product->display_price !!}</h4>
+                        <h4 class="fw-light">{!! $product->display_price !!}</h4>
                         @if ($product->discount_percentage)
                             <small class="badge bg-danger  fw-normal text-sm">
                                 <i class="fas fa-tag me-2 fs-0"></i><span
@@ -44,8 +46,9 @@
                         <div class="mt-2">
                             {!! $product->description !!}
                         </div>
-                        <hr>
-                        <div class="card card-body">
+<!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
+
+                        {{-- <div class="card card-body">
 
                             <h5>Sold By:</h5>
                             <div class="d-flex align-items-center mb-3">
@@ -59,7 +62,7 @@
                                 <span class="badge bg-soft-success p-2"><span class="fw-bold fs-1 text-success">Opens
                                         Today</span></span>
                             </div>
-                        </div>
+                        </div> --}}
                         @livewire('add-to-cart', ['id' => $product->id])
                 </div>
             </div>

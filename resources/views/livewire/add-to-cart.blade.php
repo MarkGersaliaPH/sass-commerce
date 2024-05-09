@@ -1,27 +1,19 @@
 <div class="mt-3">
-    <form wire:submit="save" class="row">
+    <form wire:submit="save">
 
-        <div class="col-md-2">
-            <div class="d-flex gap-2 align-items-center">
-                <span class="text-danger cursor-pointer d-block"
-                    wire:click="decrease">
-                    <i class="fa fa-minus cursor-pointer"></i>
-                </span>
-                <div class="">
-                    {{ $qty }}
-                </div>
-                <span class="text-danger cursor-pointer d-block"
-                    wire:click="increase">
-                    <i class="fa fa-plus"></i>
-                </span>
+        <div class="input-group mb-3 number-spinner">
+            <div class="input-group-prepend">
+                <button class="btn border" wire:click="decrease" data-dir="dwn" type="button"><i
+                        class="fas fa-minus text-dark"></i></button>
+            </div>
+            <input type="text" class="form-control form-control-sm text-center" value={{ $qty }}>
+            <div class="input-group-append">
+                <button class="btn border" wire:click="increase" data-dir="up" type="button"><i
+                        class="fas fa-plus text-dark"></i></button>
             </div>
         </div>
-       
-        <div class="col-md-4">
-            <button class="btn btn-danger w-100 " type="submit">ADD TO
-                CART</button>
 
-        </div>
+        <button class="btn btn-danger " type="submit">Add to cart</button>
 
     </form>
 </div>

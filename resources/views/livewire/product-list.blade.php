@@ -8,7 +8,7 @@
               
             <div class="row">
                 @foreach ($products as $product)
-                    <div class="col-6 col-sm-6 col-lg-3  col-md-3 mb-5">
+                    <div class="col-6 col-sm-6 col-lg-4  col-md-4 mb-5">
                        @include('products.single')
                     </div>
                 @endforeach

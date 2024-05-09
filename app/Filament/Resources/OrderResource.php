@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Filament\Customer\Resources;
+namespace App\Filament\Resources;
 
-use App\Filament\Customer\Resources\OrderResource\Pages;
+use App\Enums\OrderStatus;
+use App\Filament\Resources\OrderResource\Pages;
+use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
+use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 use Filament\Infolists\Components\Grid as ComponentsGrid;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\Section as ComponentsSection;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
-use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Sum;
-use Filament\Tables\Table;
+use Filament\Tables\Grouping\Group;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class OrderResource extends Resource
 {
@@ -22,13 +30,13 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $recordTitleAttribute = 'order_id';
 
+    protected static ?string $recordTitleAttribute = 'order_id';
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
+                //
             ]);
     }
 
@@ -38,30 +46,32 @@ class OrderResource extends Resource
             ->columns([
                 //
                 Tables\Columns\TextColumn::make('order_id')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('order_items_count')
-                    ->numeric()
-                    ->label('Products')
-                    ->counts('orderItems'),
-                    Tables\Columns\TextColumn::make('total_amount')
-                        ->numeric()->summarize(Sum::make())
-                        ->sortable(),
-                Tables\Columns\TextColumn::make('shipping_fee')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
+                ->sortable(), 
+            Tables\Columns\TextColumn::make('order_items_count')
+                ->numeric()
+                ->label('Products')
+                ->counts('orderItems'),
+            Tables\Columns\TextColumn::make('total_amount')
+                ->numeric()
+                // ->summarize(Sum::make()->label('Total')->query(fn (QueryBuilder $query) => $query->where('status', OrderStatus::Completed))) 
+                ->sortable(), 
+            Tables\Columns\TextColumn::make('status')
+                ->badge(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable(),
+            ])->defaultGroup('transaction_id')  
+            ->groups([
+                Group::make('transaction_id')
+                    ->getTitleFromRecordUsing(fn (Order $record): string => ucfirst($record->transaction_id)),
             ])
-            ->defaultGroup('transaction_id')
             ->filters([
+                
                 //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -70,6 +80,14 @@ class OrderResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -134,7 +152,8 @@ class OrderResource extends Resource
                                     ->label('Last updated'),
                             ]),
                         ComponentsSection::make('Billing')
-                            ->schema([ 
+                            ->schema([
+                                TextEntry::make('shipping.shipping_fee')->money('PHP'),
                                 TextEntry::make('tax')->money('PHP'),
                                 TextEntry::make('total_amount')->money('PHP'),
                                 TextEntry::make('payment_method')->badge(),
@@ -145,20 +164,13 @@ class OrderResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
             'view' => Pages\ViewOrder::route('/{record}'),
+            'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
 }

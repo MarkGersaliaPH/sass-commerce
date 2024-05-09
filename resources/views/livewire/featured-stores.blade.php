@@ -9,7 +9,7 @@
           <div class="row gx-2 mx-auto d-flex justify-content-center">
             @foreach ($stores as $store)
                 
-            <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5">
+            <div class="col-sm-6 col-md-4 col-lg-4 h-100 mb-5">
                 <div class="card card-span h-100 text-white border rounded-3">
                     <div class="img-fluid card-img-top rounded-3 single-product-image" style="background-image:url({{$store->products->first()->image}})"></div> 
                   

@@ -15,7 +15,7 @@ class Order extends Model
     use HasFactory;
     // use HasAddress;
 
-    protected $fillable = ['user_id', 'store_id', 'total_amount', 'shipping_fee', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method', 'guest_checkout', 'customer_id', 'order_id', 'tax', 'sub_total'];
+    protected $fillable = ['user_id', 'store_id', 'total_amount', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method', 'guest_checkout', 'customer_id', 'order_id', 'tax', 'sub_total','transaction_id'];
 
     protected $casts = [
         'status' => OrderStatus::class,
@@ -76,5 +76,9 @@ class Order extends Model
     public function getShippingAddressDisplayAttribute()
     {
         return $this->displayAddress();
+    }
+
+    public function transaction(){
+        return $this->belongsTo(Transaction::class, 'transaction_id', 'order_transaction_id');
     }
 }

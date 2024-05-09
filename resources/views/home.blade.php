@@ -1,10 +1,8 @@
 @extends('layouts.front')
-@section('content')
-
-{{asset("template/assets/img/favicons/apple-touch-icon.png")}}
+@section('content') 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
-    <section class="py-4 overflow-hidden">
+    <section class="py-0 overflow-hidden">
  
         {{-- @include('how-does-it-work') --}}
         @livewire('latest-discounted-products')
