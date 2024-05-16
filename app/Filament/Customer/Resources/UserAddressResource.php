@@ -36,8 +36,7 @@ class UserAddressResource extends Resource
     }
 
     public static function getBarangayOptions()
-    {
-
+    { 
         return \DB::table('barangays')
         ->where('city_id', 137401)
         ->pluck('name');
@@ -49,17 +48,18 @@ class UserAddressResource extends Resource
             ->schema([
                 Section::make([
                     Toggle::make('isDefault'),
+                    TextInput::make('title')->required(),
                     TextInput::make('name'),
                     Grid::make(2)->schema([
                         TextInput::make('contact_no'),
                         TextInput::make('email'),
                     ]),
                     Grid::make(2)->schema([
-                        TextInput::make('region')->disabled()->default('National Capital Region (NCR)'),
-                        TextInput::make('province')->disabled()->default('NCR, Second District (Not a Province)'),
+                        TextInput::make('region')->readOnly()->default('National Capital Region (NCR)'),
+                        TextInput::make('province')->readOnly()->default('NCR, Second District (Not a Province)'),
 
                     ]),
-                    TextInput::make('city')->disabled()->default('City of Mandaluyong)'),
+                    TextInput::make('city')->readOnly()->default('City of Mandaluyong)'),
                     Select::make('barangay')->options(self::getBarangayOptions()),
                     TextInput::make('street'),
                     TextInput::make('address_line'),
@@ -73,6 +73,7 @@ class UserAddressResource extends Resource
             ->columns([
                 //
                 ToggleColumn::make('isDefault'),
+                TextColumn::make('title'),
                 TextColumn::make('name'),
                 TextColumn::make('contact_no'),
                 TextColumn::make('email'),

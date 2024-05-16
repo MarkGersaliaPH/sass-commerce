@@ -7,12 +7,21 @@ use App\Services\OrderService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use Livewire\Attributes\On; 
 
 class Checkout extends Component
 {
     public AddressForm $form;
 
     public CustomerForm $customer;
+
+    #[On('address-selected')] 
+    public function updateForm($id)
+    {
+        dd($id);
+    }
+
+
 
     public function save(OrderService $orderService)
     {

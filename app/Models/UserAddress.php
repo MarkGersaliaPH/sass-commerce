@@ -11,6 +11,7 @@ class UserAddress extends Model
 
     protected $fillable = [
         'user_id',
+        'title',
         'name',
         'contact_no',
         'email',
@@ -26,4 +27,17 @@ class UserAddress extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function displayAddress()
+    {
+        return sprintf(
+            '%s, %s, Barangay %s, %s %s',
+            $this->address_line ?? '',
+            $this->street ?? '',
+            $this->barangay ?? '',
+            $this->city ?? '',
+            $this->region ?? ''
+        );
+    }
+
 }

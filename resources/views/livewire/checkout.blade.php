@@ -13,6 +13,12 @@
         <form wire:submit="save"> 
 
             <div class="card card-body mb-3">
+                <h5 class="mb-3">Select Shipping Detail</h5> 
+                @livewire('select-shipping-detail')
+            </div>
+
+
+            <div class="card card-body mb-3">
                 <h5 class="mb-3">Shipping Details</h5> 
                 @include('forms.address')
             </div>

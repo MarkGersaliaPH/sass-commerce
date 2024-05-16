@@ -27,6 +27,7 @@ class Address extends Form
     #[Validate('required')]
     public $street;
 
+
     public function onSelectRegion()
     {
         $this->provinces = \DB::table('provinces')

@@ -16,6 +16,11 @@ class CustomerMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->user()->isCustomer()) {
+
+            if(request()->has('ref')){
+                return redirect('checkout');
+            }
+
             return $next($request);
         }
 
