@@ -3,10 +3,11 @@
 @include('layouts.header')
 
 @livewireStyles 
+@laravelPWA
 
 <body>
 
-  @include('layouts.navbar')
+    @include('layouts.navbar')
 
     <!-- ===============================================-->
     <!--    Main Content-->

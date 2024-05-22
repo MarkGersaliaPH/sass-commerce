@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <button class="btn btn-danger " type="submit">Add to cart</button>
+        <button class="btn btn-danger w-100" type="submit">Add to cart</button>
 
     </form>
 </div>

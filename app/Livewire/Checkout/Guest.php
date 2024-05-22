@@ -26,7 +26,7 @@ class Guest extends Component
 
         DB::beginTransaction();
         try {
-            $orderService->saveOrder($this->form);
+            $orderService->saveOrder($this->form->all());
 
             DB::commit();
 

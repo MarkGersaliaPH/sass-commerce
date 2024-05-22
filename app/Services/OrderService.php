@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class OrderService
 {
     public function saveOrder($addressFormData)
-    {
+    { 
         $cart_data = CustomCart::content();
 
         // Group the items by 'store_id'
@@ -59,8 +59,8 @@ class OrderService
             $order->tax = $tax;
             $order->total_amount = $subTotal  + $tax;
             $order->order_id = $this->generateOrderId($order);
-            $order->transaction_id = $transaction_id;
-            $order->shipping_details()->create($addressFormData->all());
+            $order->transaction_id = $transaction_id; 
+            $order->shipping_details()->create($addressFormData);
 
             $order->save();
 

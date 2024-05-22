@@ -1,4 +1,8 @@
-<div class="px-4 px-lg-0">
+
+<div class=" px-lg-0">
+    @section('page_title')
+    My Cart
+    @endsection 
     <div class="pb-5">
         <div class="container">
 
@@ -8,19 +12,15 @@
                     <li class="breadcrumb-item active" aria-current="page"> Cart</li>
                 </ol>
             </nav>
-            <div class="row">
-                <div class="col-md-8">
-                    @livewire('cart.table')
-                </div>
-                <div class="col-md-4">
+            <div class=""> 
+                    @livewire('cart.table')  
                     <div class="card">
                         <div class="card-body">
                             @livewire('cart.order-summary')
                             <a href="{{route('checkout')}}" class="btn btn-danger py-2 d-block">Procceed to
                                 checkout</a>
                         </div>
-                    </div>
-                </div>
+                    </div> 
             </div>
 
         </div>

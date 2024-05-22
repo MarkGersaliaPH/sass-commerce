@@ -1,11 +1,9 @@
 <div>
-    @foreach ($shippingDetailOptions as $key => $option)
-        <div>
-            <input id="{{ $key }}" type="radio" style="display: inline-block" class="card-radio-input" name="myradio">
-            <div class="card-radio">
-                <label for="" class="card-radio-label">{{ $option->title }}</label>
-                {{ $option->displayAddress() }}
-            </div>
-        </div>
-    @endforeach
+    <select wire:model="user_address_id" class="form-control">
+        <option value="">Select</option>
+
+        @foreach ($shippingDetailOptions as $key => $option)
+            <option value={{ $option->id }}>{{ $option->title }} - {{$option->city}}</option>
+        @endforeach
+    </select>
 </div>

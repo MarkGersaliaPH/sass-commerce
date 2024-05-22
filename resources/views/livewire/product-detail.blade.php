@@ -9,11 +9,11 @@
         </nav>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <img src="{{ $product->image }}" alt="" class="img-fluid w-100 mb-4 rounded-3">
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <h6 class="   fw-light text-muted text-truncate mb-1">{{ $product->category->name }}</h6>
 
                 <h1 class=" fw-normal mb-1">{{ $product->name }}</h1>

@@ -7,7 +7,7 @@ use App\Models\UserAddress;
 
 class SelectShippingDetail extends Component
 {
-    public $shipping_id;
+    public $user_address_id;
     public $selectShippingDetail;
     public $shippingDetailOptions;
     public $selectedOptions =[];
