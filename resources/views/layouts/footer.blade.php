@@ -3,7 +3,7 @@
       <!-- <section> begin ============================-->
       <section class="py-0 pt-7 bg-1000">
 
-        <div class="container">
+        <div class="container-fluid">
           <div class="row justify-content-lg-between">
             <h5 class="lh-lg fw-bold text-white">OUR TOP CITIES</h5>
             <div class="col-6 col-md-4 col-lg-auto mb-3">

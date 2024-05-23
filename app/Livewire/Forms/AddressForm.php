@@ -18,14 +18,10 @@ class AddressForm extends Form
     public $address;
 
     #[Validate('required')]
-    public $barangay;
-
-    #[Validate('required')]
-    public $street;
-
+    public $barangay; 
+    public $street; 
     public $email;
-
-    #[Validate('required')]
+ 
     public $name;
 
     #[Validate('required')]

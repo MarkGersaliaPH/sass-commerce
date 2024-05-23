@@ -1,5 +1,6 @@
 .single-product-image {
-    height: 200px !important;
+    min-height: 140px !important;
+    
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

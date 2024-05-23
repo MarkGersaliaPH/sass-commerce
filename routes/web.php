@@ -6,6 +6,7 @@ use App\Livewire\Checkout;
 use App\Livewire\Checkout\Guest;
 use App\Livewire\Checkout\NotLoggedIn;
 use App\Livewire\ProductDetail;
+use App\Livewire\Shop;
 use App\Livewire\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/shop', ShopController::class);
+Route::get('/shop', Shop::class)->name('shop');
 
 Route::get('/product/{id}', ProductDetail::class)->name('product.detail');
 

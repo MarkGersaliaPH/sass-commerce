@@ -4,11 +4,8 @@
     <!-- <section> begin ============================-->
     <section class="py-0 overflow-hidden">
  
-        {{-- @include('how-does-it-work') --}}
         @livewire('latest-discounted-products')
 
-        @livewire('popular-items')
-        
         @livewire('product-list') 
 
         @livewire('featured-stores')
@@ -29,7 +26,7 @@
             <div class="row flex-center">
                 <div class="col-xxl-9 py-7 text-center">
                     <h1 class="fw-bold mb-4 text-white fs-6">Are you ready to order <br />with the best deals? </h1><a
-                        class="btn btn-danger" href="#"> PROCEED TO ORDER<i class="fas fa-chevron-right ms-2"></i></a>
+                        class="btn btn-danger" href="{{route('shop')}}"> PROCEED TO ORDER<i class="fas fa-chevron-right ms-2"></i></a>
                 </div>
             </div>
         </div>

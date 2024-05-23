@@ -114,4 +114,8 @@ class Product extends Model
         // Return the tax amount
         return $taxAmount;
     }
+
+    public static function search($key){
+        return self::where('name','LIKE','%'.$key.'%');
+    }
 }

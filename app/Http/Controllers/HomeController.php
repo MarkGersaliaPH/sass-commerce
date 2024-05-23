@@ -14,9 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $data['popular_items'] = Product::All();
-        $data['featured_stores'] = Store::All();
-
-        $order = Transaction::with('orders')->find(1);  
+        $data['featured_stores'] = Store::All(); 
         return view('home', $data);
     }
 }

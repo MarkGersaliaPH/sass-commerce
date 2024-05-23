@@ -13,15 +13,7 @@ use Livewire\Attributes\On;
 class Checkout extends Component
 {
     public AddressForm $form;
-
-    public CustomerForm $customer;
-
-    #[On('address-selected')] 
-    public function updateForm($id)
-    {
-        dd($id);
-    }
-
+  
     
     public $shippingDetailOptions =[];
 
