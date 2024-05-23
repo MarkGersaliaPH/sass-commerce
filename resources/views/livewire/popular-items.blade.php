@@ -1,7 +1,7 @@
 <div>
-    <div class="container my-5">
+    <div class="container">
         
-        <div class="col-lg-7 mx-auto text-center mt-7 ">
+        <div class="col-lg-7 mx-auto text-center mt-6 ">
             <h5 class="fw-bold fs-3 fs-lg-5 lh-sm text-white">Popular items</h5>
           </div>
           
@@ -16,4 +16,5 @@
         
         @livewire('product-modal')
     </div> 
+</div>
 
