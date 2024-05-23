@@ -13,7 +13,8 @@
             </div>
         </div>
 
-        <button class="btn btn-danger w-100" type="submit">Add to cart</button>
+        @include('components.spinner')
+        <button class="btn btn-danger w-100" type="submit" wire:loading.remove>Add to cart</button>
 
     </form>
 </div>

@@ -6,7 +6,7 @@
     <section class="py-0">
 
         <div class="container">
-            <div class="row h-100 gx-2 mt-7">
+            <div class="row h-100 gx-2 mt-4">
                 @foreach ($products as $product)
                     <div class="col-6 col-sm-6 col-lg-3  col-md-3 h-100 pb-4">
 
@@ -17,7 +17,7 @@
                                         style="background-image:url({{ $product->image }})">
                                     </div> 
                                 <div class="card-actions">
-                                    <div class="badge badge-foodwagon bg-danger p-2">
+                                    <div class="badge badge-foodwagon bg-danger bg-gradient p-2">
                                         <div class="d-flex flex-between-center">
                                             <div class="text-white fs-3">{{ $product->discount_percentage }}</div>
                                             <div class="d-block text-white fs-2">% <br />

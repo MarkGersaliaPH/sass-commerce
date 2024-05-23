@@ -1,8 +1,8 @@
 <div>
     <div>
-        <div class="container my-5">
+        <div class="container my-4">
 
-            <div class="col-lg-7 mx-auto text-center mt-7 mb-5">
+            <div class="col-lg-7 mx-auto text-center mb-5">
                 <h5 class="fw-bold fs-3 fs-lg-5 lh-sm">Latest Products</h5>
             </div>
 

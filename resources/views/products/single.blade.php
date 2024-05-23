@@ -6,13 +6,13 @@
      <div class="card-img-overlay ps-0">
         <div class="d-flex">
         @if ($product->discount_percentage) 
-        <small class="badge bg-danger fw-normal ms-2 shadow text-sm">
+        <small class="badge bg-danger bg-gradient fw-normal ms-2  text-sm">
             <i class="fas fa-tag me-2 fs-0"></i><span class="fs-0">{{$product->discount_percentage}}% off</span>
         </small>
         @endif
         @if ($product->display_preparation_time )
             
-        <small class="badge bg-danger fw-normal ms-2 me-1 shadow text-sm">
+        <small class="badge bg-danger bg-gradient fw-normal ms-2 me-1  text-sm">
             <i class="fas fa-clock me-1 fs-0"></i>
             <span class="fs-0">{{$product->display_preparation_time }}</span>
         </small>
