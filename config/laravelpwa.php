@@ -7,7 +7,7 @@ return [
         'short_name' => env('APP_SHORT_NAME','CKitchen'),
         'start_url' => '/',
         'background_color' => '#ffffff',
-        'theme_color' => '#F17228',
+        'theme_color' => '#fff',
         'display' => 'standalone',
         'orientation'=> 'any',
         'status_bar'=> 'black',
