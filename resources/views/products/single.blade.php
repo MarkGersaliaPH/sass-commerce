@@ -1,4 +1,4 @@
- <div class="card card-span border">
+ <div class="card card-span border product-card">
      <div class="img-fluid  rounded-top single-product-image"
          style="background-image:url({{ $product->image }})">
 

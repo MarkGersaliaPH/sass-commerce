@@ -3,7 +3,7 @@
         <div class="container">
           <div class="row h-100">
             <div class="col-lg-7 mx-auto text-center mb-6">
-              <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3 text-danger">Featured Stores</h5>
+              <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3 text-danger text-gradient">Featured Stores</h5>
             </div>
           </div>
           <div class="row gx-2 mx-auto d-flex justify-content-center">

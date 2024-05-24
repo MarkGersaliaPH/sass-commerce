@@ -1,4 +1,12 @@
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li> 
+            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+        </ol>
+    </nav>
+
+
     <div class=" mb-3 d-flex gap-2">
         <div class="form-group"> 
             <input wire:model.live="keyword" class="form-control" placeholder="Search via keyword Ex: Burgers...">
