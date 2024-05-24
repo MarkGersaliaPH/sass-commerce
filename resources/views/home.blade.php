@@ -16,10 +16,7 @@
 
 
 
-    <section class="py-0">
-        <div class="bg-holder"
-            style="background-image:url({{ asset('template/assets/img/gallery/cta-two-bg.png') }});background-position:center;background-size:cover;">
-        </div>
+    <section class="py-0 bg-danger"> 
         <!--/.bg-holder-->
 
         <div class="container">
