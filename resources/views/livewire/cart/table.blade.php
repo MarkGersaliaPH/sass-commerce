@@ -36,20 +36,21 @@
                     </td>
                     <td class="border-0 align-middle"><strong>{!! $cart->price !!}</strong>
                     </td> 
-                    <td class="border-0 align-middle " style="width: 160px">
-                        <div class="d-flex gap-2">
-                            <a href="#" class="text-danger cursor-pointer d-block"
+                    <td class="border-0 align-middle" style="width: 160px">
+                      
+                        <div class="d-flex align-middle align-items-center justify-content-center">
+                            <a href="#" class="text-danger flex-fill align-self-center cursor-pointer d-block"
                                 wire:click="decrease('{{ $cart->rowId }}')">
                                 <i class="fa fa-minus cursor-pointer"></i>
                             </a>
-                            <div class="">
+                            <div class="flex-fill align-self-center">
                                 {{ $cart->qty }}
                             </div>
-                            <a href="#" class="text-danger cursor-pointer d-block"
+                            <a href="#" class="text-danger flex-fill align-self-center cursor-pointer d-block"
                                 wire:click="increase('{{ $cart->rowId }}')">
                                 <i class="fa fa-plus"></i>
-                            </a>
-                        </div> 
+                            </a> 
+                        </div>
                     </td> 
                     <td class="border-0 align-middle">
 

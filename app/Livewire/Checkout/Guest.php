@@ -1,18 +1,21 @@
 <?php
 
 namespace App\Livewire\Checkout;
-
+ 
 use App\Livewire\Forms\AddressForm;
 use App\Models\Order;
 use App\Services\OrderService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log; 
 use Livewire\Component;
 
 class Guest extends Component
 {
+     
     public AddressForm $form;
+ 
+    
 
     public function render()
     {
@@ -30,10 +33,14 @@ class Guest extends Component
 
             DB::commit();
 
-            return redirect('/');
+            
+            session(['orderPlaced' => true]);
+
+            return redirect()->route('thank-you');
+
+
         } catch (\Exception $e) {
-            Log::error($e);
-            dd($e);
+            Log::error($e); 
             DB::rollback();
         }
     }

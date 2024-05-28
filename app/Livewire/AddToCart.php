@@ -2,12 +2,17 @@
 
 namespace App\Livewire;
 
+use App\Alerts\Alerts;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class AddToCart extends Component
 {
+
+    use Alerts;
+
     public $id;
 
     public $qty = 1;
@@ -33,12 +38,19 @@ class AddToCart extends Component
         $product = Product::find($this->id);
         $price = $product->getFinalPriceAttribute();
         Cart::add($product->id, $product->name, $this->qty, $price)->associate(Product::class);
-        $this->dispatch('cart_updated');
-        $this->reset();
+        
+        $this->getAddToCartAlert();
+ 
+
+        // return redirect(url()->previous());
+
+     
     }
 
     public function render()
     {
         return view('livewire.add-to-cart');
     }
+
+    
 }

@@ -4,10 +4,12 @@ namespace App\Services;
 
 use App\CustomCart;
 use App\Enums\OrderStatus;
+use App\Events\OrderCreated; 
 use App\Models\Order;
 use App\Models\Transaction;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth; 
 
 class OrderService
 {
@@ -20,9 +22,10 @@ class OrderService
             return $item->model->store->id;
         });
 
+         
         $transactionTotal = 0;
         $shippingFee = config('shipping_fee', 40);
-        $transaction_id = $this->generateTransactionId();
+        $transaction_id = $this->generateTransactionId(); 
         foreach ($groupped as $store_id => $cartItems) {
 
             $orderTotal = 0;
@@ -42,13 +45,14 @@ class OrderService
                 ]
             );
 
-
+             
+ 
             foreach ($cartItems as $cartItem) {
 
                 $orderTotal += $cartItem->priceTotal;
                 $subTotal += $cartItem->subtotal;
-                $tax += $this->calculateTax($cartItem->price);
-                $order->orderItems()->create([
+                $tax += $this->calculateTax($cartItem->price); 
+                $order->orderItems()->create([ 
                     'product_id' => $cartItem->id,
                     'qty' => $cartItem->qty,
                     'unit_price' => $cartItem->price,
@@ -67,13 +71,21 @@ class OrderService
             $transactionTotal += $order->total_amount;
         } 
 
-        Transaction::create(['order_transaction_id' => $transaction_id, 'shipping_fee' => $shippingFee,'total_amount'=>$transactionTotal + $shippingFee]);
+ 
+        $transaction = Transaction::create(['order_transaction_id' => $transaction_id, 'shipping_fee' => $shippingFee,'total_amount'=>$transactionTotal + $shippingFee]);
+        
+        Cart::destroy();
+
+        $mail_recipient = Auth::check() ? Auth::user()->email : $addressFormData['email'];
+        event(new OrderCreated($transaction,$mail_recipient));
+ 
+
     }
 
     public function calculateTax($price)
     {
         // Define the tax rate (12%)
-        $taxRate = 12;
+        $taxRate = CustomCart::tax();
 
         // Calculate the total price
         $totalPrice = $price;

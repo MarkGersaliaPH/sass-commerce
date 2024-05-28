@@ -1,5 +1,9 @@
 @extends('layouts.front')
 @section('content')
+
+
+@include('layouts.hero')
+ 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
     <section class="py-0 overflow-hidden">

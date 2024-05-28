@@ -40,6 +40,7 @@ class OrdersRelationManager extends RelationManager
                     ->label('Products')
                     ->counts('orderItems'),
                 Tables\Columns\TextColumn::make('total_amount')
+                ->money('PHP')  
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')

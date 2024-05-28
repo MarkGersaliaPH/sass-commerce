@@ -1,18 +1,18 @@
 <div>
     <div class="form-group">
         <label>Name:</label>
-        <input wire:model="form.name" type="text" name="name" class="form-control">  
+        <input wire:model="form.name" required type="text" name="name" class="form-control">  
         @error('name') <span class="error">{{ $message }}</span> @enderror
     </div> 
     <div class="row mb-2">
         <div class="form-group col">
             <label>Contact No:</label>
-            <input wire:model="form.contact_no" type="number" name="contact_no" class="form-control">
+            <input wire:model="form.contact_no" required type="number" name="contact_no" class="form-control">
             @error('contact_no') <span class="error">{{ $message }}</span> @enderror
         </div>
         <div class="form-group col">
             <label>Email:</label>
-            <input wire:model="form.email" type="email" name="email" class="form-control">
+            <input wire:model="form.email" required type="email" name="email" class="form-control">
         </div> 
     </div>
     <div class="row mb-2">
@@ -53,7 +53,7 @@
     </div>
     <div class="form-group  mb-2  ">
         <label>Barangay:</label> 
-        <select wire:model="form.barangay" name="barangay" id="" class="form-control"  >
+        <select wire:model="form.barangay"  required name="barangay" id="" class="form-control"  >
             @foreach ($options['barangays'] as $barangay)
             <option value="{{$barangay->name}}">{{$barangay->name}}</option>
         @endforeach
@@ -61,12 +61,12 @@
     </div>
     <div class="form-group  mb-2 ">
         <label>Street:</label>
-        <input type="text" class="form-control" name="street" wire:model="form.street"  > 
+        <input type="text" class="form-control" required name="street" wire:model="form.street"  > 
         @error('form.street') <span class="error">{{ $message }}</span> @enderror
     </div>
     <div class="form-group  mb-2 ">
         <label>Address:</label>
-        <input type="text" class="form-control" wire:model="form.address"  > 
+        <input type="text" class="form-control" required wire:model="form.address"  > 
         @error('form.address') <span class="error">{{ $message }}</span> @enderror
     </div>
 </div> 

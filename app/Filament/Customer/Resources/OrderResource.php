@@ -4,6 +4,7 @@ namespace App\Filament\Customer\Resources;
 
 use App\Filament\Customer\Resources\OrderResource\Pages;
 use App\Models\Order;
+use App\Models\Transaction;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Grid as ComponentsGrid;
 use Filament\Infolists\Components\ImageEntry;
@@ -14,8 +15,10 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 
+use Illuminate\Database\Eloquent\Builder;
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
@@ -44,19 +47,23 @@ class OrderResource extends Resource
                     ->label('Products')
                     ->counts('orderItems'),
                     Tables\Columns\TextColumn::make('total_amount')
-                        ->numeric()->summarize(Sum::make())
-                        ->sortable(),
-                Tables\Columns\TextColumn::make('shipping_fee')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Total')
+                        ->numeric()
+                        // ->summarize(Sum::make()->money())
+                        ->money("PHP")
+                        ->sortable(), 
                 Tables\Columns\TextColumn::make('status')
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
-            ])
+            ]) 
             ->defaultGroup('transaction_id')
+            ->groups([
+                Group::make('transaction_id')
+                    ->label("Transaction #")
+                    ->getDescriptionFromRecordUsing(fn (Order $record): string => "Total ₱{$record->transaction->total_amount} | Shipping Fee: ₱{$record->transaction->shipping_fee}"),
+            ])
             ->filters([
                 //
             ])
@@ -161,4 +168,9 @@ class OrderResource extends Resource
             'view' => Pages\ViewOrder::route('/{record}'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()->where('user_id',auth()->id());
+}
 }

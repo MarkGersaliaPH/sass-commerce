@@ -30,5 +30,12 @@ Route::get('/cart', CartPage::class)->name('cart');
 
 Route::get('checkout', Checkout::class)->middleware('shop')->name('checkout');
 Route::get('checkout-guest', Guest::class)->name('checkout.guest');
-
 Route::get('checkout/not-logged-in', NotLoggedIn::class)->name('checkout.not-logged-in');
+
+Route::get('/thank-you', function () {
+    
+    // Forget the session data
+    session()->forget('orderPlaced');
+    
+    return view('thank-you');
+})->name('thank-you')->middleware('order.session');

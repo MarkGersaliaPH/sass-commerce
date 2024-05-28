@@ -5,10 +5,12 @@ namespace App\Filament\Customer\Resources;
 use App\Filament\Customer\Resources\TransactionsResource\Pages;
 use App\Filament\Customer\Resources\TransactionsResource\RelationManagers;
 use App\Filament\Resources\TransactionsResource\RelationManagers\OrdersRelationManager;
-use App\Models\Transaction; 
+use App\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
@@ -29,28 +31,41 @@ class TransactionsResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->whereHas('orders',function($q){
-          return $q->where('user_id', auth()->id());  
+        return parent::getEloquentQuery()->whereHas('orders', function ($q) {
+            return $q->where('user_id', auth()->id());
         });
     }
 
-    
- 
-    
+
+
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
             ->schema([
                 Section::make([
                     Grid::make(2)->schema([
-                      TextEntry::make('shipping_fee')->label("Shipping"),
-                    TextEntry::make('total_amount')
+                        TextEntry::make('shipping_fee')->label("Shipping"),
+                        TextEntry::make('total_amount')
                     ])
+                ]),
+                Section::make([
+                    RepeatableEntry::make('orders.orderItems')
+                        ->schema([
+                            ImageEntry::make('product.image')->label('')
+                                ->height(50)
+                                ->square(),
+
+                            TextEntry::make('product.name'),
+                            TextEntry::make('qty'),
+                            TextEntry::make('unit_price')->money('PHP'),
+                        ]),
                 ])
+
             ]);
     }
 
-    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -64,12 +79,14 @@ class TransactionsResource extends Resource
         return $table
             ->columns([
                 //
-                
+
                 TextColumn::make("order_transaction_id"),
                 TextColumn::make("shipping_fee")
-                ->summarize(Sum::make()->label('Total Shipping')), 
+                    ->money('PHP'),
+                // ->summarize(Sum::make()->label('Total Shipping')), 
                 TextColumn::make("total_amount")
-                ->summarize(Sum::make('total_amount')),    
+                    ->money('PHP'),
+                // ->summarize(Sum::make('total_amount')),    
                 TextColumn::make("orders_count")->counts('orders'),
                 TextColumn::make("created_at"),
             ])
@@ -77,17 +94,16 @@ class TransactionsResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(), 
+                Tables\Actions\ViewAction::make(),
             ])
-            ->bulkActions([ 
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
     {
         return [
             //
-            
+
             OrdersRelationManager::class
         ];
     }

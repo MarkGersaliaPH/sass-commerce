@@ -14,12 +14,12 @@ class ListOrders extends ListRecords
     public function getTabs(): array
     {
         return [
-            "All" => Tab::make()->query(fn ($query) => $query->where('user_id', auth()->id())),
-            'new' => Tab::make()->query(fn ($query) => $query->where('status', 'new')->where('user_id', auth()->id())),
-            'processing' => Tab::make()->query(fn ($query) => $query->where('status', 'processing')->where('user_id', auth()->id())),
-            'shipped' => Tab::make()->query(fn ($query) => $query->where('status', 'shipped')->where('user_id', auth()->id())),
-            'completed' => Tab::make()->query(fn ($query) => $query->where('status', 'completed')->where('user_id', auth()->id())),
-            'cancelled' => Tab::make()->query(fn ($query) => $query->where('status', 'cancelled')->where('user_id', auth()->id())),
+            "All" => Tab::make(),
+            'new' => Tab::make()->query(fn ($query) => $query->where('status', 'new')),
+            'processing' => Tab::make()->query(fn ($query) => $query->where('status', 'processing')),
+            'shipped' => Tab::make()->query(fn ($query) => $query->where('status', 'shipped')),
+            'completed' => Tab::make()->query(fn ($query) => $query->where('status', 'completed')),
+            'cancelled' => Tab::make()->query(fn ($query) => $query->where('status', 'cancelled')),
         ];
     }
 

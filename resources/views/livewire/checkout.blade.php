@@ -7,8 +7,17 @@
             <li class="breadcrumb-item active" aria-current="page"> Checkout</li>
         </ol>
     </nav>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5>Order summary</h5>
+            @livewire('cart.table', ['simple' => true])
+            @livewire('cart.order-summary')
+        </div>
+    </div> 
     <div class="my-3">
         <div class="">
+            
 
             <form wire:submit="save">
 
@@ -16,7 +25,7 @@
                     <h5 class="mb-3">Select Shipping Detail</h5>
 
 
-                    <select wire:model="user_address_id" class="form-control">
+                    <select wire:model="user_address_id" required class="form-control">
                         <option value="">Select</option>
 
                         @foreach ($shippingDetailOptions as $key => $option)
@@ -28,7 +37,7 @@
 
 
                 <div class="d-flex justify-content-between">
-                    <a href="" class="text-blue">Continue Shopping</a>
+                    <a href="{{route('shop')}}" class="text-blue">Continue Shopping</a>
                     <button class="btn btn-danger" type="submit">Proceed
 
                         <div wire:loading>
@@ -39,16 +48,7 @@
                 </div>
             </form>
 
-        </div>
-        <div class="">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Order summary</h5>
-                    @livewire('cart.table', ['simple' => true])
-                    @livewire('cart.order-summary')
-                </div>
-            </div>
-        </div>
+        </div> 
     </div>
     <!-- end row -->
 

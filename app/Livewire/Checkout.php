@@ -1,31 +1,32 @@
 <?php
 
 namespace App\Livewire;
-
+ 
 use App\Livewire\Forms\AddressForm;
 use App\Models\UserAddress;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
-use Livewire\Attributes\On; 
+use Livewire\Attributes\On;
 
 class Checkout extends Component
-{
+{ 
     public AddressForm $form;
-  
-    
-    public $shippingDetailOptions =[];
 
-    public function mount(){ 
-        $this->shippingDetailOptions = UserAddress::where('user_id',auth()->id())->get();
+
+    public $shippingDetailOptions = [];
+
+    public function mount()
+    {
+        $this->shippingDetailOptions = UserAddress::where('user_id', auth()->id())->get();
     }
 
     public $user_address_id;
 
 
     public function save(OrderService $orderService)
-    { 
+    {
 
         // Execution doesn't reach here if validation fails.
 
@@ -35,9 +36,13 @@ class Checkout extends Component
             $addressData = UserAddress::find($this->user_address_id);
             $orderService->saveOrder($addressData->toArray());
 
-            DB::commit();
 
-            return redirect('/');
+            DB::commit();
+ 
+            // Set session flag
+            session(['orderPlaced' => true]);
+
+            return redirect()->route('thank-you');
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollback();
