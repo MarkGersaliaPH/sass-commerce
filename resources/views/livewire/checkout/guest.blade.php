@@ -10,9 +10,17 @@
     <form wire:submit="save">
 
 
-        <div class="card card-body mb-3">
+        <div class="card card-body">
             <h5 class="mb-3">Shipping Details</h5>
             @include('forms.address')
+        </div>
+
+        <div class="card my-3">
+            <div class="card-body">
+                <h5>Order summary</h5>
+                @livewire('cart.table',['simple'=>true])
+                @livewire('cart.order-summary')
+            </div>
         </div>
 
         <div class="d-flex justify-content-between">
@@ -24,6 +32,7 @@
             </button>
         </div>
     </form>
+
 
     <!-- end row -->
 
