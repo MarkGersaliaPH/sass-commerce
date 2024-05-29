@@ -25,7 +25,7 @@ class Guest extends Component
     public function save(OrderService $orderService)
     {
 
-        $this->form->validate();
+        // $this->form->validate();
 
         DB::beginTransaction();
         try {
