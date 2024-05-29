@@ -40,6 +40,7 @@ class Guest extends Component
 
 
         } catch (\Exception $e) {
+            dd($e);
             Log::error($e); 
             DB::rollback();
         }
