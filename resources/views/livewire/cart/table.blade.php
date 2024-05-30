@@ -1,11 +1,12 @@
 <div>
 
+    <div class="my-4">
     @foreach ($cart_data as $cart)
-        <div class="d-flex gap-2 my-4 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center">
             <div class="flex">
                 <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
 
-                <img src="{{ $cart->model->image }}" alt="" width="70" class="img-fluid rounded" />
+                <img src="{{ $cart->model->image }}" alt="" width="90" class="img-fluid rounded" />
             </div>
             <div class="flex-fill">
 
