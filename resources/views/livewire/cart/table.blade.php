@@ -1,6 +1,34 @@
+<div>
 
+    @foreach ($cart_data as $cart)
+        <div class="d-flex gap-2 my-4 align-items-center">
+            <div class="flex">
+                <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
+
+                <img src="{{ $cart->model->image }}" alt="" width="70" class="img-fluid rounded" />
+            </div>
+            <div class="flex-fill">
+
+                <h5 class="mb-0 ">
+                    <a href="{{ route('product.detail', $cart->model->id) }}" class="text-dark">{{ $cart->name }}</a>
+                </h5>
+                <span class="">
+                    {!! $cart->model->display_price !!} </span>
+            </div>
+            <div class="d-flex flex-column   align-items-center">
+                <i class="fa fa-caret-up" wire:click="increase('{{ $cart->rowId }}')"></i>
+                <input type="text" value=" {{ $cart->qty }}" style="width: 30px" class=" py-1">
+                <i class="fa fa-caret-down" wire:click="decrease('{{ $cart->rowId }}')"></i>
+            </div>
+        </div>
+    @endforeach
+</div>
+
+{{-- 
 
 <div class="table-responsive">
+
+
     <table class="table">
         <thead>
             <tr>
@@ -62,4 +90,4 @@
             @endforeach
         </tbody>
     </table> 
-</div>
+</div> --}}
