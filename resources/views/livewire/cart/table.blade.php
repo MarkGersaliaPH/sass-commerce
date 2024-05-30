@@ -2,16 +2,16 @@
 
     <div class="my-4">
     @foreach ($cart_data as $cart)
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3  gap-2 align-items-center ">
+            
+            <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
+
             <div class="flex">
-                <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
-
-                <img src="{{ $cart->model->image }}" alt="" width="90" class="img-fluid rounded" />
+                <img src="{{ $cart->model->image }}" alt="" width="80" class="img-fluid rounded" />
             </div>
-            <div class="flex-fill">
-
-                <h5 class="mb-0 ">
-                    <a href="{{ route('product.detail', $cart->model->id) }}" class="text-dark">{{ $cart->name }}</a>
+            <div class="flex-fill  d-inline-block text-truncate"> 
+                <h5 class="mb-0 text-truncate">
+                    <a href="{{ route('product.detail', $cart->model->id) }}" class="text-dark ">{{ $cart->name }}</a>
                 </h5>
                 <span class="">
                     {!! $cart->model->display_price !!} </span>

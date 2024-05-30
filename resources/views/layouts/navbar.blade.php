@@ -7,9 +7,10 @@
                 class="navbar-toggler-icon"> </span></button>
         <div class="collapse navbar-collapse border-top border-lg-0 my-2 mt-lg-0" id="navbarSupportedContent">
 
+            <a href="{{ route('shop') }}" class="nav-link rounded ms-auto"> <i class="fas fa-shop me-2"></i>Shop</a> 
             {{-- <form class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0"> --}}
             <a href="{{ route('filament.customer.auth.login') }}" class="nav-link rounded ms-auto"
-                type="submit"> <i class="fas fa-user me-2"></i>Login</a> 
+            type="submit"> <i class="fas fa-user me-2"></i>Login</a> 
             <div>
                 <a href="{{ route('cart') }}" class="nav-link text-danger  position-relative">
                     <span class="shop-bag"><i class='fa fa-shopping-bag me-2'></i></span>
