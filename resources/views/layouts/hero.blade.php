@@ -1,5 +1,6 @@
 <section class="py-2 overflow-hidden bg-danger bg-gradient" id="home">
 
-    @livewire('popular-items')
+    <div class="mt-7 mb-4 container">
+        @livewire('popular-items') 
     </div>
 </section>

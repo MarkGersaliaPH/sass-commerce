@@ -1,5 +1,4 @@
-<div>
-    <div class="container">
+<div> 
         
         <div class="col-lg-7 mx-auto text-center   ">
             <h5 class="fw-bold fs-3 fs-lg-5 lh-sm text-white">Popular items</h5>
@@ -11,10 +10,6 @@
                    @include('products.single')
                 </div>
             @endforeach
-        </div>
-
-        
-        @livewire('product-modal')
-    </div> 
+        </div> 
 </div>
 
