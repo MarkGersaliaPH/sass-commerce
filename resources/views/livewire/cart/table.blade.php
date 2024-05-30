@@ -7,8 +7,8 @@
             
             <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
 
-            <div class="flex">
-                <img src="{{ $cart->model->image }}" alt="" width="80" class="img-fluid rounded" />
+            <div class="flex" style="width:80px">
+                <img src="{{ $cart->model->image }}" alt="" width="80"  class=" rounded" />
             </div>
             <div class="flex-fill  "> 
                 <h5 class="mb-0 ">
