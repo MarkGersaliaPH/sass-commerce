@@ -2,10 +2,10 @@
 
     <div class="my-4">
     @foreach ($cart_data as $cart)
-    <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
 
         <div class="d-flex mb-3  gap-2 align-items-center ">
             
+            <i class="fa fa-times text-danger me-2" wire:click="remove('{{ $cart->rowId }}')"></i>
 
             <div class="flex">
                 <img src="{{ $cart->model->image }}" alt="" width="80" class="img-fluid rounded" />
