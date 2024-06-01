@@ -63,7 +63,11 @@
                                         Today</span></span>
                             </div>
                         </div> --}}
-                        @livewire('add-to-cart', ['id' => $product->id])
+                        @if($product->store->is_open)
+                            @livewire('add-to-cart', ['id' => $product->id])
+                        @else
+                            <span class="badge bg-soft-danger p-2"><span class="fw-bold fs-1 text-danger">Seller is close today</span>
+                        @endif
                 </div>
             </div>
         </div>

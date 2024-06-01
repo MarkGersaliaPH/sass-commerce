@@ -40,7 +40,7 @@ class Shop extends Component
         switch ($key) {
 
             case 2:
-                return ['name', 'asc'];
+                return ['name', 'desc'];
                 break;
             case 3:
                 return ['price', 'desc'];
@@ -51,6 +51,7 @@ class Shop extends Component
 
             default:
                 # code...
+                
                 return ['name', 'asc'];
                 break;
         }

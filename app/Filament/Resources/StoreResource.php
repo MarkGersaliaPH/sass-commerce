@@ -29,9 +29,13 @@ class StoreResource extends Resource
                         ->imageEditor()
                         ->directory('stores')
                         ->circleCropper(),
-                    Forms\Components\TextInput::make('name')
-                        ->required()
-                        ->maxLength(255),
+                        
+                    Forms\Components\Toggle::make('is_open')
+                    ->required()
+                    ->default(true),
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
                     Forms\Components\TextInput::make('contact_no')
                         ->maxLength(255),
                     Forms\Components\TextInput::make('address')
@@ -47,8 +51,12 @@ class StoreResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('avatar')
-                    ->searchable(),
+                
+                Tables\Columns\ToggleColumn::make('is_open')
+                    ->default(true),
+                
+                    Tables\Columns\ImageColumn::make('avatar')
+                        ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_no')

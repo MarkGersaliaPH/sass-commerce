@@ -11,7 +11,7 @@ class ProductDetail extends Component
 
     public function mount($id)
     {
-        $this->product = Product::find($id);
+        $this->product = Product::with('store')->find($id);
     }
 
     public function render()

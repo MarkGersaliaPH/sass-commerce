@@ -10,7 +10,7 @@ class Store extends Model implements HasAvatar
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address', 'contact_no', 'email', 'avatar'];
+    protected $fillable = ['name', 'address', 'contact_no', 'email', 'avatar','is_open'];
 
     public function members()
     {
