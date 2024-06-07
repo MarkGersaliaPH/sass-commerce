@@ -74,9 +74,11 @@ class OrderService
 
  
         $transaction = Transaction::create(['order_transaction_id' => $transaction_id, 'shipping_fee' => $shippingFee,'total_amount'=>$transactionTotal + $shippingFee]);
-        
+        $transaction = $transaction->load('orders.orderItems.product','orders.store');
+ 
         Cart::destroy();
 
+ 
         $mail_recipient = Auth::check() ? Auth::user()->email : $addressFormData['email'];
         event(new OrderCreated($transaction,$mail_recipient));
  
