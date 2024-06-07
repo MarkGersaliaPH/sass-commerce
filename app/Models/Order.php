@@ -15,10 +15,11 @@ class Order extends Model
     use HasFactory;
     // use HasAddress;
 
-    protected $fillable = ['user_id', 'store_id', 'total_amount', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method', 'guest_checkout', 'customer_id', 'order_id', 'tax', 'sub_total','transaction_id'];
+    protected $fillable = ['user_id', 'store_id', 'total_amount', 'status', 'shipping_address', 'contact_no', 'contact_name', 'payment_method', 'guest_checkout', 'customer_id', 'order_id', 'tax', 'sub_total','transaction_id','notifications'];
 
     protected $casts = [
         'status' => OrderStatus::class,
+        'notifications' =>"array"
     ];
 
     protected $appends = ['shipping_address_display'];

@@ -29,9 +29,9 @@ class OrderStatusNotifyMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        $markdown_blade = $this->getMarkDownBlade($this->order->status);
+        $mail_data = $this->getMailData($this->order->status);
         return new Envelope(
-            subject: $markdown_blade['subject'],
+            subject: $mail_data['subject'],
         );
     }
 
@@ -40,9 +40,9 @@ class OrderStatusNotifyMail extends Mailable
      */
     public function content(): Content
     {
-        $markdown_blade = $this->getMarkDownBlade($this->order->status);
+        $mail_data = $this->getMailData($this->order->status);
         return new Content(
-            markdown: $markdown_blade['mark_down'],
+            markdown: $mail_data['mark_down'],
         );
     }
 
@@ -56,7 +56,7 @@ class OrderStatusNotifyMail extends Mailable
         return [];
     }
 
-    public function getMarkDownBlade($status)
+    public function getMailData($status)
     {
         switch ($status) {
             case OrderStatus::Shipped:
@@ -65,6 +65,8 @@ class OrderStatusNotifyMail extends Mailable
                 return ["mark_down" => "mails.orders.processing", "subject" => "Your Order Is Now Processing"];
             case OrderStatus::Completed:
                 return ["mark_down" => "mails.orders.completed", "subject" => "Order Complete"];
+            case OrderStatus::Cancelled:
+                return ["mark_down" => "mails.orders.cancelled", "subject" => "Order Cancelled"];
         }
     }
 }

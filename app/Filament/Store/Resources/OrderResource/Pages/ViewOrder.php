@@ -7,6 +7,7 @@ use App\Events\OrderStatusNotifyEvent;
 use App\Filament\Store\Resources\OrderResource;
 use App\Models\Order;
 use App\Services\OrderNotificationService;
+use App\Services\OrderService;
 use Filament\Actions\Action;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Resources\Pages\ViewRecord;
@@ -29,15 +30,11 @@ class ViewOrder extends ViewRecord
                         ->required(),
                 ])
                 ->action(function (array $data, Order $record) {
-                    // (new OrderNotificationService($record))->notify($data);
-
                     $record->status = $data['status'];
                     $record->save();
+                    $record->load("orderItems", "orderItems.product");
 
-                    // if ($record->isDirty('status')) {
-                        $record->load("orderItems", "orderItems.product");
-                        event(new OrderStatusNotifyEvent($record, $data));
-                    // }
+                    (new OrderService())->notify($record, $data);
                 }),
         ];
     }

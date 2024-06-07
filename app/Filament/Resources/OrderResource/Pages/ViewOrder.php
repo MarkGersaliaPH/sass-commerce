@@ -5,6 +5,7 @@ namespace App\Filament\Resources\OrderResource\Pages;
 use App\Enums\OrderStatus;
 use App\Filament\Resources\OrderResource;
 use App\Models\Order;
+use App\Services\OrderService;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Forms\Components\ToggleButtons;
@@ -29,6 +30,9 @@ class ViewOrder extends ViewRecord
                 ->action(function (array $data, Order $record) {
                     $record->status = $data['status'];
                     $record->save();
+                    $record->load("orderItems", "orderItems.product"); 
+                     
+                    (new OrderService())->notify($record,$data); 
                 }),
         ];
     }

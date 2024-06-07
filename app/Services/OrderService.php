@@ -4,7 +4,8 @@ namespace App\Services;
 
 use App\CustomCart;
 use App\Enums\OrderStatus;
-use App\Events\OrderCreated; 
+use App\Events\OrderCreated;
+use App\Events\OrderStatusNotifyEvent;
 use App\Models\Order;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -126,5 +127,29 @@ class OrderService
             $digits .= mt_rand(0, 9); // Generate a random digit (0-9) and append to the string
         }
         return $digits;
+    }
+
+    public function notify($record,$data){   
+        if ($record->status ==  OrderStatus::Processing && empty($record->notifications['processing'])) {
+            event(new OrderStatusNotifyEvent($record, $data));
+            $this->updateNotification($record, 'processing');
+        } elseif ($record->status == OrderStatus::Shipped && empty($record->notifications['shipped'])) {
+            event(new OrderStatusNotifyEvent($record, $data));
+            $this->updateNotification($record, 'shipped');
+        } elseif ($record->status == OrderStatus::Completed && empty($record->notifications['completed'])) {
+            event(new OrderStatusNotifyEvent($record, $data));
+            $this->updateNotification($record, 'completed'); 
+        } elseif ($record->status == OrderStatus::Cancelled && empty($record->notifications['cancelled'])) {
+            event(new OrderStatusNotifyEvent($record, $data));
+            $this->updateNotification($record, 'cancelled');
+        }
+    }
+
+    protected function updateNotification($order, $status)
+    {
+        $notifications = $order->notifications;
+        $notifications[$status] = true;
+        $order->notifications = $notifications;
+        $order->save();
     }
 }
