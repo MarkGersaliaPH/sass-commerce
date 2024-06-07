@@ -11,7 +11,7 @@ Your order has been successfully created.
 ## Order Details
 
 @foreach ($transaction->orders as $order)
-### Seller: {{ $order->store->name }} Order ID ({{$order->order_id}}) 
+### Seller: {{ $order->store->name }} ({{$order->order_id}}) 
 @foreach ($order->orderItems as $item)
 - **{{ $item->product->name }}** (x{{ $item->qty }}) - PHP{{ number_format($item->unit_price, 2) }}
 @endforeach
